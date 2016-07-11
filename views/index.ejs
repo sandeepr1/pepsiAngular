@@ -10,8 +10,8 @@
     <!-- end of css -->
 
     <!-- javascript start here -->
-    <script src="js/lib/jquery/dist/jquery.min.js "></script>      
     <script type="text/javascript" src="js/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/lib/jquery/dist/jquery.min.js "></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
@@ -28,21 +28,71 @@
   </head>
 
   <body ng-app="MyApp">
+    <!-- side menu code here -->
+    <div ng-controller="sideMenuController" class="col-md-2 sideMenuWrapper" style="margin-top:0px;" >
+      <nav id="sidebar-wrapper" role="navigation">
+       <ul class="nav sidebar-nav" id = "side">
+        <li class="sidebar-brand" id = "slidemenu">
+            slidemenu
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-folder-close"></i> Dashboard</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-facetime-video"></i>Equipment</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-alert"></i> Error Status</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-phone"></i> Inventory</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-blackboard"></i> Report</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-globe"></i> Admin</a>
+        </li>
+    </ul>
+  </nav>
+  </div>
+  <script type="text/javascript">
+    var previous;
+    $('li a').on('click',function(e) {
+      if (previous == undefined) {
+        previous = this;
+        $(this).css('background','white');
+        $(this).children('i').css('color','black');
+        return;
+      }
+      $(previous).css('background','')
+      $(previous).children('i').css('color','white');
+      $(this).css('background','white');
+      $(this).children('i').css('color','black');
+
+
+      previous = this;
+      console.log(this);
+    })
+  </script>
+      <!-- end of side menu code here -->
+
+
+
+
+
+
+
 
   	<div>
 
   		<hr >
 
   		<div class="container-fluid" style="margin:0">
-  			<!-- side menu code here -->
-  			<div ng-controller="sideMenuController" class="col-md-2" style="border:1px solid black;height:400px">
-
-  			</div>
-  				<!-- end of side menu code here -->
 
 
   			<!-- code for different views	 -->
-  			<div class="col-md-10" style="border:1px solid black;height:400px">
+  			<div class="col-md-10" style="border:1px solid black;height:400px;margin-left:260px">
   				<div ng-view="">
 
   				</div>
@@ -50,12 +100,12 @@
   						<!-- end of view code -->
   		</div>
 
-  		
+
   	</div>
-   
 
 
 
+    <script type="text/javascript" src="js/myApp/js/sidemenu.js"></script>
   	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCur7otcKAAlJLqG_7jAv5P-j9F6EqeGWQ&callback=geoLocation"></script>
   </body>
 </html>

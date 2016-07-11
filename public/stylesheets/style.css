@@ -58,3 +58,40 @@ height:75px !important;
       }
 
  /*end of style for dashboard cards*/
+ li a:hover{
+   background-color: red;
+   font-size: 20px;
+ }
+  li a{
+    color: white;
+  }
+ .sidemenuselect{
+   background-color: white;
+ }
+ .sideMenuWrapper{
+   position: absolute;
+   margin-top: 0px;
+   margin-left: 0px;
+   padding-left: 0px;
+   padding-right: 0px;
+   width: 230px;
+   height: 570px;
+   background: #00667A;
+   font-size: 14px;
+   border: 1px solid black;
+ }
+i {
+  margin-right: 5px;
+  color: white;
+  font-size: 24px;
+  /*margin-top: 22px;*/
+}
+#side {
+  margin-top: 50px;
+}
+#slidemenu{
+  background: grey;
+  color: white;
+  font-size: 12px;
+  /*height: px;*/
+}
