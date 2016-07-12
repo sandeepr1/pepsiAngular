@@ -1,4 +1,4 @@
-angular.module('MyApp').factory('dataLoad', ['$http',function($http){
+app.factory('dataLoad', ['$http',function($http){
 	var factory = {};
 
 	factory.getAllData=function(success){

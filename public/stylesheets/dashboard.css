@@ -1,0 +1,54 @@
+div #dashboardView {
+	background-color: white;
+
+}
+
+div #filters{
+	height: 50px;
+}
+
+div #snapshot{
+	height: 36px;
+	background-color: #e8ebd1;
+	color: #352e77;
+	font-size: 20px;
+}
+
+.bar {
+  fill: #0f0d0b;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+
+path.slice{
+	stroke-width:2px;
+}
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+} 
+svg text.percent{
+	fill:white;
+	text-anchor:middle;
+	font-size:12px;
+}

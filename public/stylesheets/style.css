@@ -1,60 +1,165 @@
 body {
-  padding-top: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f3f4ed;
+  overflow-y: hidden;
 
 }
-
+html,body{
+  height: 100%;
+}
 a {
   color: #00B7FF;
 }
 
 /*style for dashboard card*/
-.md-headline-custom{
-  background: blue; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left,rgba(0,72,145,0), rgba(0,72,145,1)); /*Safari 5.1-6*/
-  background: -o-linear-gradient(left,rgba(0,72,145,0), rgba(0,72,145,1)); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(left,rgba(0,72,145,0), rgba(0,72,145,1)); /*Fx 3.6-15*/
-  background: linear-gradient(to left, rgba(0,72,145,0), rgba(0,72,145,1)); /*Standard*/
-  color: aliceblue;
-  padding: 5px;
-}
-.md-class-indicator_img{
-height:75px !important;
-}
-.md-class-indicator_title{
-
-      padding-top: 0px;
-      padding-left: 0px;
-      padding-right: 0px;
-      padding-bottom: 0px;
-      }
-      .md-card-title-div{
-      height:75px !important;
-      text-align:center;
-      }
-      .para_align{
-      padding-top:25px;
-      margin-top:8px;
-      font-size:150%;
-      font-weight: bold;
-      }
-      .span_align{
-      padding-top:15px;
-      padding-left:15px;
-      /*background-color: #ffcc33;*/
-      }
-      #first{
-      background-color: #ffcc44;
-      }
-      #second{
-  background-color: #ff6633;
-      }
-      #third{
-    background-color: #5c5651;
-      }
-      #fourth{
-  background-color: #d5b26e;
+      .md-headline-custom{
+        /*background: blue; /* For browsers that do not support gradients */
+        /*background: -webkit-linear-gradient(left,rgba(0,72,145,0), rgba(0,72,145,1)); /*Safari 5.1-6*/
+        /*background: -o-linear-gradient(left,rgba(0,72,145,0), rgba(0,72,145,1)); /*Opera 11.1-12*/
+        /*background: -moz-linear-gradient(left,rgba(0,72,145,0), rgba(0,72,145,1)); /*Fx 3.6-15*/
+        /*background: linear-gradient(to left, rgba(0,72,145,0), rgba(0,72,145,1)); /*Standard*/
+        /*color: aliceblue;*//*/*/
+        background-color: #FFFFFF;
+        padding: 5px;
       }
 
+      .md-class-indicator{
+      height:75px important;
+      width: 25%;
+
+      }
+      .md-class-indicator_title{
+
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            }
+            .md-card-title-div{
+            height:75px !important;
+            width: 25%;
+            /*text-align:center;*/
+            /*align-content: center;*/
+            }
+      .first{
+        padding-left: 20%;
+        padding-top: 10%;
+      }
+      .second{
+        padding-left: 10%;
+        padding-top: 17%;
+      }
+      .third{
+        padding-left: 10%;
+        padding-top: 10%;
+      }
+      .fourth{
+        padding-left: 10%;
+        padding-top: 5%;
+      }
+            .para_align{
+            padding-top:25px;
+            margin-top:20px;
+            font-size:150%;
+            align-content: center;
+            font-weight: bold;
+            }
+            .span_align{
+            padding-top:10px;
+            align-content: center;
+
+            padding-left:30%;
+            /*background-color: #ffcc33;*/
+            }
+            #first{
+            background-color: #ffcc44;
+            height: 100%;
+            }
+            #second{
+        background-color: #ff6633;
+        height: 100%;
+            }
+            #third{
+          background-color: #5c5651;
+          height: 100%;
+            }
+            #fourth{
+        background-color: #d5b26e;
+        height: 100%;
+            }
  /*end of style for dashboard cards*/
+ .cards md-content {
+    background-color: #f3f4ed;
+}
+.md-headline {
+  color: white;
+}
+
+
+
+ /*side menu css*/
+
+ li a:hover{
+   background-color: red;
+   font-size: 20px;
+ }
+  li a{
+    color: white;
+  }
+ .sidemenuselect{
+   background-color: white;
+ }
+ .sideMenuWrapper{
+   position: absolute;
+   margin-top: 0px;
+   margin-left: 0px;
+   padding-left: 0px;
+   padding-right: 0px;
+   width: 100%;
+   height: 100%;
+   background: #00667A;
+   font-size: 14px;
+   border: 1px solid black;
+ }
+i {
+  margin-right: 5px;
+  color: white;
+  font-size: 24px;
+  /*margin-top: 22px;*/
+}
+#side {
+  margin-top: 50px;
+}
+#slidemenu{
+  background: grey;
+  color: white;
+  font-size: 12px;
+  /*height: px;*/
+}
+
+/*end of side menu css*/
+
+/*equipmentDetails css*/
+.tabsdemoDynamicHeight md-content {
+  background-color: transparent !important; }
+  .tabsdemoDynamicHeight md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1; }
+    .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+      background: white; }
+  .tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0; }
+    table, th , td {
+         border: 1px solid grey;
+         border-collapse: collapse;
+         padding: 5px;
+      }
+      table{
+          background : white;
+      }
+    .image {
+        height:300px;
+        width:120px;
+    }
+
+/*end of equipment details*/

@@ -1,0 +1,86 @@
+<div  ng-cloak="" class="tabsdemoDynamicHeight" >
+  <md-content>
+    <md-tabs md-dynamic-height="" md-border-bottom="">
+      <md-tab label="General">
+        <md-content class="md-padding">
+          <div class = "row">
+            <div class="col-lg-2">
+          <img class="md-display-2"  src="public\images\vending_machine.png" alt="image">
+          </div>
+       <div class = "col-lg-5 ">
+           <table width="70%" height="20%" class="table" id = "table1">
+            <thead>
+                <tbody  ng-repeat="reqKey in reqFeilds">
+
+                      <tr ng-repeat="(Key,value) in data[0]">
+                       <th ng-if="reqKey==Key">{{Key}}</th>
+                       <td ng-if="reqKey==Key">{{value}}</td>
+                      </tr>
+                </tbody >
+            </thead>
+           </table>
+      </div>
+      <div class = "col-lg-5 " style="margin-left:-32px;">
+          <table width="70%" height="20%" class="table"  id = "table2">
+           <thead>
+               <tbody  ng-repeat="reqKey in reqFeilds2">
+
+                     <tr ng-repeat="(Key,value) in data[0]">
+                      <th ng-if="reqKey==Key">{{Key}}</th>
+                      <td ng-if="reqKey==Key">{{value}}</td>
+                     </tr>
+               </tbody >
+           </thead>
+          </table>
+     </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Health">
+        <md-content class="md-padding">
+            <div class = "row">
+              <div class="col-lg-2">
+            <img class="md-display-2"  src="public\images\vending_machine.png" alt="image">
+            </div>
+         <div class = "col-lg-5 ">
+             <table width="70%" height="20%" class="table" id = "table1">
+              <thead >
+<tbody  ng-repeat="reqKey in reqFeilds">
+
+      <tr ng-repeat="(Key,value) in data[0]">
+       <th ng-if="reqKey==Key">{{Key}}</th>
+       <td ng-if="reqKey==Key">{{value}}</td>
+      </tr>
+</tbody >
+
+              </thead>
+             </table>
+        </div>
+        <div class = "col-lg-5 " style="margin-left:-32px;">
+            <table width="70%" height="20%" class="table"  id = "table2">
+             <thead>
+                 <tbody  ng-repeat="reqKey in reqFeilds">
+
+                       <tr ng-repeat="(Key,value) in data[0]">
+                        <th ng-if="reqKey==Key">{{Key}}</th>
+                        <td ng-if="reqKey==Key">{{value}}</td>
+                       </tr>
+                 </tbody >
+             </thead>
+            </table>
+       </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Alert">
+        <md-content class="md-padding">
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
+</div>
+
+<!-- 
+
+</div>
+ -->

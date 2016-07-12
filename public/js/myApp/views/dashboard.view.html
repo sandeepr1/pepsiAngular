@@ -1,5 +1,5 @@
-<div id="dashboardCards">
-	<md-content class="md-padding" layout-xs="row" layout="row">
+<div id="dashboardCards" class="cards">
+<md-content class="md-padding" layout-xs="row" layout="row">
           <div flex-xs flex-gt-xs="100" layout="row">
             <md-card class="md-class-indicator">
               <md-card-title-media class="md-class-indicator_title" >
@@ -12,11 +12,11 @@
               <md-card-title class="md-class-indicator_title">
 
                 <md-card-title-text>
-                  <span class="md-headline span_align" id="first">0.3mn </span>
+                  <span class="md-headline span_align" id="first">3400 </span>
 
                 </md-card-title-text>
                 <md-card-title-text>
-                  <span class="second">Daily Revenue</span>
+                  <span class="first">SPIRE Installs</span>
 
                 </md-card-title-text>
               </md-card-title>
@@ -32,11 +32,11 @@
               <md-card-title class="md-class-indicator_title">
 
                 <md-card-title-text>
-                  <span class="md-headline span_align" id="second">0.3mn Daily Revenue</span>
+                  <span class="md-headline span_align" id="second">30</span>
 
                 </md-card-title-text>
                 <md-card-title-text>
-                  <span class="third"></span>
+                  <span class="second">Customers</span>
 
                 </md-card-title-text>
               </md-card-title>
@@ -48,10 +48,10 @@
               </md-card-title-media>
               <md-card-title class="md-class-indicator_title">
                 <md-card-title-text>
-                  <span class="md-headline span_align" id="third">32% Ratio Revenue</span>
+                  <span class="md-headline span_align" id="third">10</span>
                 </md-card-title-text>
                 <md-card-title-text>
-                  <span class="fourth"></span>
+                  <span class="third">Units Mismatch</span>
                 </md-card-title-text>
               </md-card-title>
             </md-card>
@@ -66,11 +66,11 @@
               <md-card-title class="md-class-indicator_title">
 
                 <md-card-title-text>
-                  <span class="md-headline span_align"id="fourth">0.3mn Daily Revenue</span>
+                  <span class="md-headline span_align"id="fourth">50</span>
 
                 </md-card-title-text>
                 <md-card-title-text>
-                  <span class="second"></span>
+                  <span class="fourth">Equipment With ZERO Pour</span>
 
                 </md-card-title-text>
               </md-card-title>
@@ -78,4 +78,98 @@
           </div>
         </md-content>
 
+</div>
+
+
+
+<div id="dashboardView">
+
+	<div id="filters" class="row">
+			<div class="col-md-3 col-lg-3">
+				<span class="pull-left">Country :</span>
+				<div class="btn-group pull-left" style="margin-right:50px">
+			      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        {{selectedCountry}}<span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu">
+			        <li><a href="" ng-repeat="country in countryKeys" ng-click="updateCountry(country)">{{country}}</a></li>
+			      </ul>
+			    </div>
+			</div>
+
+
+			<div class="col-md-3 col-lg-3">
+				<span class="pull-left">Region :</span>
+			     <div class="btn-group pull-left" style="margin-right:50px">
+			      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        {{selectedRegion}}<span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu">
+			        <li><a href="" ng-repeat="region in regionsKeys" ng-click="updateRegion(region)">{{region}}</a></li>
+			      </ul>
+			    </div>
+			</div>
+
+			<div class="col-md-3 col-lg-3">
+				<span class="pull-left">Market Unit :</span>
+			    <div class="btn-group pull-left" style="margin-right:50px">
+			      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        {{selectedMarketUnit}}<span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu">
+			        <li><a href="" ng-repeat="marketUnit in marketUnitKeys" ng-click="updateMarketunit(marketUnit)">{{marketUnit}}</a></li>
+			      </ul>
+			    </div>
+
+			</div>
+
+			<div class="col-md-3 col-lg-3">
+				<span class="pull-left">Location :</span>
+			     <div class="btn-group pull-left" style="margin-right:50px">
+			      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        {{selectedLocation}}<span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu">
+			        <li><a href="" ng-repeat="location in locationsKeys" ng-click="updateLocation(location)">{{location}}</a></li>
+			      </ul>
+			    </div>
+
+			</div>
+
+	</div>
+
+	<div id="snapshot">
+		<span>Snapshot </span> <span class="glyphicon glyphicon-excel pull-right"></span>
+	</div>
+
+	<div id="graphs" class="row">
+		<div class="col-md-6 col-lg-6" style="height:100%" >
+			<div class="row col-md-12 col-lg-12" style="height:50%" id="barChart">
+				Hello 1
+			</div>
+			<div class="row col-md-12 col-lg-12" style="height:50%" id="pieChart">
+				Hello 2
+			</div>
+		</div>
+		<div class="col-md-6 col-lg-6" >
+			Right Pane
+			<div id="geoGraph" style="height:300px; width:400px">
+
+			</div>
+	               <div class="geobox">
+                        <div >
+                            <img src="https://placehold.it/100x150" alt="" class="chkimg" />
+                        </div>
+                        <div class= "geodetails">
+                            Equipment parameters
+                            <center>
+                            <table class="table tclass" >
+                                
+                            </table>
+                        </center>
+                        </div> <!-- geodetails ends-->
+
+                    </div>
+		</div>
+	</div>
 </div>
