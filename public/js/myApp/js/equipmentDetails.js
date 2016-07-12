@@ -1,4 +1,6 @@
-app.controller('equipmentDetailsController',['$scope','dataLoad',function($scope,dataLoad){
+app.controller('equipmentDetailsController',['$scope','dataLoad','equipmentDtlsService',function($scope,dataLoad,equipmentDtlsService){
+		console.log("Level 3 controller");
+		console.log(equipmentDtlsService.getSelectedEquipment());
 		dataLoad.getAllData(function(data){
 		$scope.data=data;
 		});

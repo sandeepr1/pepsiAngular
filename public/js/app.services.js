@@ -11,3 +11,14 @@ app.factory('dataLoad', ['$http',function($http){
 
 	return factory;
 }]);
+
+app.service('equipmentDtlsService', ['$http',function($http){
+	var equipmentDetails = {};
+
+	this.setSelectedEquipment=function(data){
+		 equipmentDetails=data;
+      };
+	this.getSelectedEquipment=function(){
+		 return equipmentDetails;
+      };
+}]);

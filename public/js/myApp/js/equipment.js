@@ -1,4 +1,4 @@
-app.controller('equipmentController',['$scope','dataLoad','$http','$log', '$timeout','$location', 'uiGridConstants',function($scope,dataLoad,$http,$log,$timeout,$location,uiGridConstants){
+app.controller('equipmentController',['$scope','dataLoad','equipmentDtlsService','$http','$log', '$timeout','$location', 'uiGridConstants',function($scope,dataLoad,equipmentDtlsService,$http,$log,$timeout,$location,uiGridConstants){
 
 $scope.initEquipmentMap=function (coords,tabeldata) {
 	
@@ -2437,7 +2437,7 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
       gridApi.selection.on.rowSelectionChanged($scope,function(row){
         var msg = 'row selected ' + row.isSelected;
 		console.log(row.entity);
-		  
+		equipmentDtlsService.setSelectedEquipment(row.entity);
         $log.log(msg);
 		
       });
