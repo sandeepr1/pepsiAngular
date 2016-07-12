@@ -1,11 +1,18 @@
-<div  ng-cloak="" class="tabsdemoDynamicHeight" >
+<div class="row2">
+    <ul>
+        <li class="pull-left"><h4>Equipment Status</h4></li>
+        <div class="pull-right">
+    </div>
+    </ul>
+</div>
+<div  ng-cloak="" class="tabsdemoDynamicHeight" id = "equip" >
   <md-content>
     <md-tabs md-dynamic-height="" md-border-bottom="">
-      <md-tab label="General">
+      <md-tab label="Overview" style="text-transform:none;">
         <md-content class="md-padding">
-          <div class = "row">
+          <div class = "row" id="tableWindow">
             <div class="col-lg-2">
-          <img class="md-display-2"  src="public\images\vending_machine.png" alt="image">
+          <img class="md-display-2" id="image"  src="images/pepsi.jpg" alt="image">
           </div>
        <div class = "col-lg-5 ">
            <table width="70%" height="20%" class="table" id = "table1">
@@ -35,16 +42,16 @@
      </div>
         </md-content>
       </md-tab>
-      <md-tab label="Health">
+      <md-tab label="Health Check" style="text-transform:none;">
         <md-content class="md-padding">
             <div class = "row">
               <div class="col-lg-2">
-            <img class="md-display-2"  src="public\images\vending_machine.png" alt="image">
+            <img class="md-display-2" id="image" src="images/pepsi.jpg" alt="image">
             </div>
          <div class = "col-lg-5 ">
              <table width="70%" height="20%" class="table" id = "table1">
               <thead >
-<tbody  ng-repeat="reqKey in reqFeilds">
+<tbody  ng-repeat="reqKey in reqFeilds3">
 
       <tr ng-repeat="(Key,value) in data[0]">
        <th ng-if="reqKey==Key">{{Key}}</th>
@@ -58,7 +65,7 @@
         <div class = "col-lg-5 " style="margin-left:-32px;">
             <table width="70%" height="20%" class="table"  id = "table2">
              <thead>
-                 <tbody  ng-repeat="reqKey in reqFeilds">
+                 <tbody  ng-repeat="reqKey in reqFeilds4">
 
                        <tr ng-repeat="(Key,value) in data[0]">
                         <th ng-if="reqKey==Key">{{Key}}</th>
@@ -70,17 +77,13 @@
        </div>
         </md-content>
       </md-tab>
-      <md-tab label="Alert">
-        <md-content class="md-padding">
 
-        </md-content>
-      </md-tab>
     </md-tabs>
   </md-content>
 
 </div>
 
-<!-- 
+<!--
 
 </div>
  -->

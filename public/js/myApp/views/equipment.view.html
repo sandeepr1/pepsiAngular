@@ -1,0 +1,236 @@
+<div class="container">
+            <!-- body of the page goes here -->
+            <!-- code by Ashish Gupta-->
+            <div ng-cloak="" class="carddemoCardActionButtons">
+				<md-content class="md-padding" layout-xs="column" layout="row">
+
+                    
+                    <div flex-xs="" flex-gt-xs="200" layout="column">
+                        <md-card>
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline md-headline-custom">
+										Equipment View
+									</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-content>
+                              <div id='mapContainer'>
+                              <div id="map" style="height:500px"></div>
+                              </div>
+								<!-- <button type="button" id = "view3" name="button" class="btn btn-default btn-xs"> view3</button> -->
+                            <!-- <i class="icon-search" class="float-right" id = "icon-search"></i> -->
+
+                            <div class="geobox">
+                                <div >
+                                    <img src="images/vending_machine.png" alt="" class="chkimg" />
+                                </div>
+                                <div class= "geodetails">
+                                    Equipment parameters
+                                    <center>
+                                    <table class="table tclass" >
+                                        <tr>
+                                            <td>Customer Name</td>
+                                            <td>shell cobras</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Customer Address</td>
+                                            <td>34, ist aveneue</td>
+                                        </tr>
+                                    </table>
+                                </center>
+                                </div> <!-- geodetails ends-->
+                            </div>
+                            </md-card-content>
+<!--
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-button class="md-icon-button" aria-label="Favorite">
+                                    <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Settings">
+                                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Share">
+                                    <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+                                </md-button>
+                            </md-card-actions>
+-->
+                        </md-card>
+<!--
+                        <md-card>
+                            <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-button class="md-icon-button" aria-label="Favorite">
+                                    <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Settings">
+                                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Share">
+                                    <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+                                </md-button>
+                            </md-card-actions>
+                        </md-card>
+-->
+                        <md-card>
+<!--
+                            <md-card-header>
+                                <md-card-avatar>
+                                    <img src="img/logo.svg">
+                                </md-card-avatar>
+                                <md-card-header-text>
+                                    <span class="md-title">Angular</span>
+                                    <span class="md-subhead">Material</span>
+                                </md-card-header-text>
+                            </md-card-header>
+-->
+<!--
+                            <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline md-headline-custom">Global Equipments List</span>
+                                </md-card-title-text>
+                            </md-card-title>
+-->
+                            <md-card-content>
+<!--
+                                <p>
+                                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                                    two most important words in Ernest Greene's musical language: feel it. It's a simple request, as
+                                    well...
+                                </p>
+-->
+								<div ng-controller="equipmentController as ctrl">
+								<form ng-submit="$event.preventDefault()">
+								
+<!--									REGION FILTER STARTS-->
+								<div class=row>
+									<div class="col-md-4"><span class="filter-text">Region</span></div>
+									<div class="col-md-8">
+									   <md-autocomplete
+										  ng-disabled="ctrl.isDisabled"
+										  md-no-cache="ctrl.noCache"
+										  md-selected-item="ctrl.selectedRegionItem"
+										  md-search-text-change="ctrl.searchRegionChange(ctrl.searchRegion)"
+										  md-search-text="ctrl.searchRegion"
+										  md-selected-item-change="ctrl.selectedRegionChange(item)"
+										  md-items="item in ctrl.regionSearch(ctrl.searchRegion)"
+										  md-item-text="item.display"
+										  md-min-length="0"
+										  placeholder="Northern Region?">
+										  <md-item-template>
+											 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+										  </md-item-template>
+										  <md-not-found>
+											 No regions matching "{{ctrl.searchRegion}}" were found.
+											 <a ng-click="ctrl.newState(ctrl.Region)">Create a new one!</a>
+										  </md-not-found>
+									   </md-autocomplete>
+									   <br/>
+									  
+									</div>
+								</div>
+<!--								REGION FILTER ENDS -->
+<!--								MARKET UNIT FILTER STARTS-->
+									
+									<div class=row>
+									<div class="col-md-4"><span class="filter-text">Market Unit</span></div>
+									<div class="col-md-8">
+									   <md-autocomplete
+										  ng-disabled="ctrl.isDisabled"
+										  md-no-cache="ctrl.noCache"
+										  md-selected-item="ctrl.selectedMunitItem"
+										  md-search-text-change="ctrl.searchMunitChange(ctrl.searchMunit)"
+										  md-search-text="ctrl.searchMunit"
+										  md-selected-item-change="ctrl.selectedMunitChange(item)"
+										  md-items="item in ctrl.munitSearch(ctrl.searchMunit)"
+										  md-item-text="item.display"
+										  md-min-length="0"
+										  placeholder="Midwest region?">
+										  <md-item-template>
+											 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+										  </md-item-template>
+										  <md-not-found>
+											 No market units matching "{{ctrl.searchMunit}}" were found.
+											 <a ng-click="ctrl.newState(ctrl.Munit)">Create a new one!</a>
+										  </md-not-found>
+									   </md-autocomplete>
+									   <br/>
+									  
+									</div>
+								</div>
+<!--								MARKET UNIT FILTER ENDS-->
+<!--								LOCATION FILTER STARTS-->
+								<div class=row>
+									<div class="col-md-4"><span class="filter-text">Location</span></div>
+									<div class="col-md-8">
+									   <md-autocomplete
+										  ng-disabled="ctrl.isDisabled"
+										  md-no-cache="ctrl.noCache"
+										  md-selected-item="ctrl.selectedLocationItem"
+										  md-search-text-change="ctrl.searchLocationChange(ctrl.searchLocation)"
+										  md-search-text="ctrl.searchLocation"
+										  md-selected-item-change="ctrl.selectedLocationChange(item)"
+										  md-items="item in ctrl.locationSearch(ctrl.searchLocation)"
+										  md-item-text="item.display"
+										  md-min-length="0"
+										  placeholder="Northern Location?">
+										  <md-item-template>
+											 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+										  </md-item-template>
+										  <md-not-found>
+											 No Locations matching "{{ctrl.searchLocation}}" were found.
+											 <a ng-click="ctrl.newState(ctrl.Location)">Create a new one!</a>
+										  </md-not-found>
+									   </md-autocomplete>
+									   <br/>
+									  
+									</div>
+								</div>
+<!--								LOCATION FILTER ENDS -->
+<!--								COF FILTER STARTS-->
+								<div class=row>
+									<div class="col-md-4"><span class="filter-text">COF#</span></div>
+									<div class="col-md-8">
+									   <md-autocomplete
+										  ng-disabled="ctrl.isDisabled"
+										  md-no-cache="ctrl.noCache"
+										  md-selected-item="ctrl.selectedCofItem"
+										  md-search-text-change="ctrl.searchCofChange(ctrl.searchCof)"
+										  md-search-text="ctrl.searchCof"
+										  md-selected-item-change="ctrl.selectedCofChange(item)"
+										  md-items="item in ctrl.cofSearch(ctrl.searchCof)"
+										  md-item-text="item.display"
+										  md-min-length="0"
+										  placeholder="Northern Cof?">
+										  <md-item-template>
+											 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+										  </md-item-template>
+										  <md-not-found>
+											 No Cofs matching "{{ctrl.searchCof}}" were found.
+											 <a ng-click="ctrl.newState(ctrl.Cof)">Create a new one!</a>
+										  </md-not-found>
+									   </md-autocomplete>
+									   <br/>
+									  
+									</div>
+								</div>
+<!--								COF FILTER ENDS -->
+								</form>
+								  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid" style='width:1060px; '></div>
+								  <button ng-click="enableFilter('CANADA')">View U.S.A</button>
+								  <button ng-click="enableFilter('U.S.A')">View Canada</button>
+								  <button ng-click="enableFilter('NONE')">Reset filters</button>
+								
+									
+									</div>
+                            </md-card-content>
+                        </md-card>
+                    </div>
+				
+         
+                </md-content>
+            </div>
+            <!-- code by Ashish Gupta -->
+
+        </div>

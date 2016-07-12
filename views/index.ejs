@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+       <style>
+     
+    .grid {
+      width: 800px;
+      height: 250px;
+    }
+
+    span #filters{
+      width: 500px;
+    }
+    .filter-text{
+      font-weight: 600;
+      padding: 5px;
+      align-items: center;
+      margin-top: 60px;
+      margin-left: 20px;
+    }
+   </style>
     <!-- end of css -->
 
     <!-- javascript start here -->
@@ -21,7 +42,14 @@
     <script type="text/javascript" src="/js/lib/angular-route/angular-route.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="/js/myApp/js/donut.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCur7otcKAAlJLqG_7jAv5P-j9F6EqeGWQ"></script>
+
+ <!--    // <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCur7otcKAAlJLqG_7jAv5P-j9F6EqeGWQ"></script> -->
+
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
+    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid-unstable.css" type="text/css">
 
 
     <script type="text/javascript" src="js/app.js"></script>
@@ -30,27 +58,32 @@
     <script type="text/javascript" src="js/myApp/js/sideMenu.js"></script>
     <script type="text/javascript" src="js/myApp/js/dashboard.js"></script>
     <script type="text/javascript" src="js/myApp/js/equipmentDetails.js"></script>
+    <script type="text/javascript" src="js/myApp/js/equipment.js"></script>
     <!-- end of javascript -->
   </head>
 
   <body ng-app="MyApp">
 
-  	<div>
-
-  		<div class="container-fluid">
+ <div class="container-fluid" id="mainDiv">
   			<!-- side menu code here -->
-  			<div ng-controller="sideMenuController" class="col-md-2 col-lg-2" style="height:700px">
+  	<div ng-controller="sideMenuController" class="col-md-2 col-lg-2" id="sideMenuDiv">
        <nav id="sidebar-wrapper"  class="sideMenuWrapper"role="navigation">
-        <img src="/images/header-backgroundimage.png" alt="Header Logo"  height="15%">
+        <img src="/images/header-backgroundimage.png" alt="Header Logo"  height="13%">
            <ul class="nav sidebar-nav" id = "side">
-              <li class="sidebar-brand" id = "slidemenu">
+              <!-- <li class="sidebar-brand" id = "slidemenu">
                   slidemenu
+              </li> -->
+              <li class="slide1">
+                  <img src="/images/ln-slidmenu-back.png" width="105%">
               </li>
               <li>
                   <a href="/#/"><i class="glyphicon glyphicon-folder-close"></i> Dashboard</a>
               </li>
               <li>
                   <a href="/#/equipment"><i class="glyphicon glyphicon-facetime-video"></i>Equipment</a>
+              </li>
+              <li>
+                  <a href="#"><i class="glyphicon glyphicon-error"></i> Error Status</a>
               </li>
               <li>
                   <a href="#"><i class="glyphicon glyphicon-alert"></i> Alerts</a>
@@ -71,8 +104,8 @@
 
 
   			<!-- code for different views	 -->
-  			<div class="col-md-10 col-lg-10" style="height:700px">
-  				<div ng-view="">
+  			<div class="col-md-10 col-lg-10" id="renderedView">
+  				<div ng-view="" style="height:inherit">
 
   				</div>
   			</div>
@@ -84,7 +117,7 @@
    
 
 
-
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCur7otcKAAlJLqG_7jAv5P-j9F6EqeGWQ"></script>
   	
   </body>
 </html>

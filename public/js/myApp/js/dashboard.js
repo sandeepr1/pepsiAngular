@@ -146,9 +146,9 @@ angular.module('MyApp')
 					        temp["label"]=key;
 					        temp["value"]=SENConnectivity[key];
 					        if(key==="Transmitting Data"){
-					        	 temp["color"]="yellow";
+					        	 temp["color"]="rgb(32,190,140)";
 					        }else{
-					        	temp["color"]="pink";
+					        	temp["color"]="rgb(231,76,60)";
 					        }
 					       
 					        connectivityStatus.push(temp);
@@ -171,17 +171,28 @@ angular.module('MyApp')
                  }
                 $scope.geoLocation=function(coordinates,tabeldata){
 			             var map = new google.maps.Map(document.getElementById('geoGraph'), {
-			                      zoom: 2,
+			                      zoom: 4,
 			                      center: {
 			                           "lat": Number(coordinates[0].LAT),
 			                           "lng": Number(coordinates[0].LNG)
 			                     }
 			               });
 
-					        var image = 'http://www.myiconfinder.com/uploads/iconsets/32-32-a5485b563efc4511e0cd8bd04ad0fe9e.png';
-
+			             	var image="";
 					        for (var i = 0; i < coordinates.length; i++) {
-					           var contentString = "<p>some info here </h1>"
+					        	            var contentString;
+												if(coordinates[i].CONNECTIVITY=='Not Connected'){
+												image='images/map-marker-red.png' ;
+												contentString="<p>Connected, Faulty</p>";
+												 
+												}
+												else{
+												image ='images/map-marker-green.png' ;
+												contentString="<p>Connected, Healthy</p>";
+												 
+												}
+  
+
 					           var infowindow = new google.maps.InfoWindow({
 					           content: contentString
 					          });
@@ -195,7 +206,11 @@ angular.module('MyApp')
 					          icon: image,
 					          details:{
 					                "customerName":coordinates[i].CUSTOMER_NAME,
-					                "customerAddress":coordinates[i].ADDR1
+					                "customerAddress":coordinates[i].ADDR1,
+					                "equipmentId":coordinates[i].EQPMT_ID,
+					                "serialNo":coordinates[i].EQPMT_SRL_NUM_VAL,
+					                "lastHeartBeat":coordinates[i].LAST_BEAT,
+					                "lastPour":coordinates[i].EVNT_TMSTMP
 					          },
 					          title: 'Demo',
 					          animation: google.maps.Animation.DROP
@@ -206,7 +221,7 @@ angular.module('MyApp')
 					          infowindow.open(map, this);
 					          $('.geobox').show(700);
 					          $('.geodetails').html("");
-					          var table = 'Equipment Details <center> <table class="table tclass" ><tr><td>Customer Name</td><td>'+this.details.customerName+'</td></tr><tr><td>Customer Address</td><td>'+this.details.customerAddress+'</td></tr></table></center>';
+					          var table = '<span style="font-size:14px;color:#00667a;">Equipment Parameters</span> <center> <table class="table tclass" ><tr><td>Equipment Id :</td><td>'+this.details.equipmentId+'</td></tr><tr><td>Serial No :</td><td>'+this.details.serialNo+'</td></tr><tr><td>Customer Name</td><td>'+this.details.customerName+'</td></tr><tr><td>Customer Address</td><td>'+this.details.customerAddress+'</td></tr><tr><td>Last Pour :</td><td>'+this.details.lastPour+'</td></tr><tr><td>Last Heart Beat :</td><td>'+this.details.lastHeartBeat+'</td></tr></table></center>';
 					          $('.geodetails').html(table);
 					        }))
 					        }
@@ -217,10 +232,10 @@ angular.module('MyApp')
                 $scope.barChart=function(data,excelObject,OverallStatusKeys){
 							var margin = {top: 20, right: 20, bottom: 30, left: 40},
 							    width = 500 - margin.left - margin.right,
-							    height = 300 - margin.top - margin.bottom;
+							    height = 250 - margin.top - margin.bottom;
 
 							var x = d3.scale.ordinal()
-							    .rangeRoundBands([0, width], .1);
+							    .rangeRoundBands([0, width], .8);
 
 							var y = d3.scale.linear()
 							    .range([height, 0]);
@@ -232,7 +247,7 @@ angular.module('MyApp')
 							var yAxis = d3.svg.axis()
 							    .scale(y)
 							    .orient("left")
-							    .ticks(10, "%");
+							    .ticks(0);
 
 							var svg = d3.select("#barChart").append("svg")
 							    .attr("width", width + margin.left + margin.right)
@@ -254,10 +269,10 @@ angular.module('MyApp')
 							      .call(yAxis)
 							    .append("text")
 							      .attr("transform", "rotate(-90)")
-							      .attr("y", 6)
+							      .attr("y", -5)
 							      .attr("dy", ".71em")
 							      .style("text-anchor", "end")
-							      .text("Frequency");
+							      .text("No.of Machines");
 
 							  svg.selectAll(".bar")
 							      .data(data)
@@ -288,7 +303,7 @@ angular.module('MyApp')
 
 						svg.append("g").attr("id","donutStatus");
 
-						Donut3D.draw("donutStatus",excelObject,SENConnectivityKeys,geoLocation, data, 150, 150, 130, 100, 20, .2);
+						Donut3D.draw("donutStatus",excelObject,SENConnectivityKeys,geoLocation, data, 220, 120, 130, 100, 20, .2);
 
                  }
 

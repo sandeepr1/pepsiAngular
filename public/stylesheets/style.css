@@ -2,10 +2,12 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f3f4ed;
   overflow-y: hidden;
+  overflow-x:hidden; 
 
 }
 html,body{
   height: 100%;
+  width: 100%;
 }
 a {
   color: #00B7FF;
@@ -24,7 +26,7 @@ a {
       }
 
       .md-class-indicator{
-      height:75px important;
+      height:100%;
       width: 25%;
 
       }
@@ -34,13 +36,8 @@ a {
             padding-left: 0px;
             padding-right: 0px;
             padding-bottom: 0px;
-            }
-            .md-card-title-div{
-            height:75px !important;
-            width: 25%;
-            /*text-align:center;*/
-            /*align-content: center;*/
-            }
+      }
+
       .first{
         padding-left: 20%;
         padding-top: 10%;
@@ -98,6 +95,15 @@ a {
 
 
  /*side menu css*/
+ #sideMenuDiv{
+  padding: 0;
+  height: 100%;
+ }
+ #mainDiv{
+  padding: 0;
+  height: 100%;
+  width: 100%;
+ }
 
  li a:hover{
    background-color: red;
@@ -140,26 +146,74 @@ i {
 /*end of side menu css*/
 
 /*equipmentDetails css*/
+#equip{
+    margin-left: 30px;
+}
+#table1{
+    padding-left: 50px;
+}
 .tabsdemoDynamicHeight md-content {
   background-color: transparent !important; }
   .tabsdemoDynamicHeight md-content md-tabs {
-    background: #f6f6f6;
-    border: 1px solid #e1e1e1; }
+    background: white;
+/*border: 1px solid #e1e1e1; */}
     .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
-      background: white; }
+      background:  #f3f4ed; }
   .tabsdemoDynamicHeight md-content h1:first-child {
     margin-top: 0; }
     table, th , td {
          border: 1px solid grey;
          border-collapse: collapse;
          padding: 5px;
+         padding-left: 10px;
       }
-      table{
+       th{
+          background: white;
+      }
+      td{
+          background:#f3f4ed;
+      }
+     table{
           background : white;
       }
-    .image {
-        height:300px;
-        width:120px;
+
+    #image  {
+        height:250px;
+        width:180px;
+        background: inherit;
+        /*padding-left: 0px;
+        margin-left: 0px;*/
     }
+    /*.table{
+        margin-top: :30px;
+    }*/
+    .row2{
+        background:white;
+        /*margin-top:150px;*/
+        margin-left: 30px;
+        height: 40px;
+    }
+    .row2 ul li{
+        display:inline;
+    }
+    .row2 ul li i{
+        color:grey;
+        margin-top: 2px;
+        margin-right:5px;
+    }
+ md-tab-item span {
+
+}
 
 /*end of equipment details*/
+
+/*rendered view css*/
+
+#renderedView{
+
+  padding-top: 6%;
+  height: 110%;
+  overflow-y:auto; 
+}
+
+/*end of rendered view*/
