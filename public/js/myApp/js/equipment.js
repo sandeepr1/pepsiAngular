@@ -1,4 +1,4 @@
-app.controller('equipmentController',['$scope','dataLoad','$http',function($scope,dataLoad,$http){
+app.controller('equipmentController',['$scope','dataLoad','$http','$log', '$timeout', 'uiGridConstants',function($scope,dataLoad,$http,$log,$timeout,uiGridConstants){
 
 $scope.initEquipmentMap=function (coords,tabeldata) {
 	
@@ -2337,6 +2337,8 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
 					enableRowSelection:true,
 					selectionRowHeaderWidth: 35,
 					enableSorting: true,
+					enableFullRowSelection:true,
+					multiSelect:false,
 //					rowHeight:30,
 					columnDefs: [
 					  { name:'Equip-id', field: 'EQPMT_ID',width:100 },
@@ -2357,15 +2359,22 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
 
 				$scope.data = response.data;
 				$scope.masterData=response.data;
+				
+				 $timeout(function() {
+					if($scope.gridApi.selection.selectRow){
+					  $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
+					}
+				  });
 				console.log("Master data read from server");
 				$scope.gridOptions = {
 					enableRowSelection:true,
-					selectionRowHeaderWidth: 35,
+					selectionRowHeaderWidth: 60,
 					enableSorting: true,
 					enableRowResizing:true,
+					
 //					rowHeight:30,
 					columnDefs: [
-					  { name:'Equip-id', field: 'EQPMT_ID',width:100 },
+					  { name:'Equip-id', field: 'EQPMT_ID',width:100,enablePinning:true },
 					  { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125 },
 					  { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
 					  { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
@@ -2380,6 +2389,72 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
 				$scope.gridOptions.data=$scope.data;
 				
 			});
+	
+	    $scope.toggleMultiSelect = function() {
+      $scope.gridApi.selection.setMultiSelect(!$scope.gridApi.grid.options.multiSelect);
+    };
+ 
+    $scope.toggleModifierKeysToMultiSelect = function() {
+      $scope.gridApi.selection.setModifierKeysToMultiSelect(!$scope.gridApi.grid.options.modifierKeysToMultiSelect);
+    };
+ 
+    $scope.selectAll = function() {
+      $scope.gridApi.selection.selectAllRows();
+    };
+ 
+    $scope.clearAll = function() {
+      $scope.gridApi.selection.clearSelectedRows();
+    };
+ 
+    $scope.toggleRow1 = function() {
+      $scope.gridApi.selection.toggleRowSelection($scope.gridOptions.data[0]);
+    };
+ 
+    $scope.toggleFullRowSelection = function() {
+      $scope.gridOptions.enableFullRowSelection = !$scope.gridOptions.enableFullRowSelection;
+      $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.OPTIONS);
+    };
+ 
+    $scope.setSelectable = function() {
+      $scope.gridApi.selection.clearSelectedRows();
+ 
+      $scope.gridOptions.isRowSelectable = function(row){
+        if(row.entity.age > 30){
+          return false;
+        } else {
+          return true;
+        }
+      };
+      $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
+ 
+      $scope.gridOptions.data[0].age = 31;
+      $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
+    };
+ 
+    $scope.gridOptions.onRegisterApi = function(gridApi){
+      //set gridApi on scope
+      $scope.gridApi = gridApi;
+      gridApi.selection.on.rowSelectionChanged($scope,function(row){
+        var msg = 'row selected ' + row.isSelected;
+		   console.log(row.entity);
+        $log.log(msg);
+      });
+ 
+      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+        var msg = 'rows changed ' + rows.length;
+		 console.log(rows);
+        $log.log(msg);
+      });
+	 $scope.gridRowClick = row => {
+      console.log(row);
+      // or maybe $location.path(row.url)?
+    };
+
+    };
+	
+	//$scope.gridOptions.rowTemplate= '/views/grid-row.view.html';
+    
+
 				$scope.enableFilter=function(data){
 				var filData=$scope.data;
 				//$scope.gridOptions.data.splice(25,20);

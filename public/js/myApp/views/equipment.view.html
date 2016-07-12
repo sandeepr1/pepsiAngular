@@ -1,6 +1,5 @@
 <div class="container">
-            <!-- body of the page goes here -->
-            <!-- code by Ashish Gupta-->
+           
             <div ng-cloak="" class="carddemoCardActionButtons">
 				<md-content class="md-padding" layout-xs="column" layout="row">
 
@@ -42,64 +41,12 @@
                                 </div> <!-- geodetails ends-->
                             </div>
                             </md-card-content>
-<!--
-                            <md-card-actions layout="row" layout-align="end center">
-                                <md-button class="md-icon-button" aria-label="Favorite">
-                                    <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                                </md-button>
-                                <md-button class="md-icon-button" aria-label="Settings">
-                                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-                                </md-button>
-                                <md-button class="md-icon-button" aria-label="Share">
-                                    <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-                                </md-button>
-                            </md-card-actions>
--->
                         </md-card>
-<!--
+
                         <md-card>
-                            <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
-                            <md-card-actions layout="row" layout-align="end center">
-                                <md-button class="md-icon-button" aria-label="Favorite">
-                                    <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
-                                </md-button>
-                                <md-button class="md-icon-button" aria-label="Settings">
-                                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-                                </md-button>
-                                <md-button class="md-icon-button" aria-label="Share">
-                                    <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
-                                </md-button>
-                            </md-card-actions>
-                        </md-card>
--->
-                        <md-card>
-<!--
-                            <md-card-header>
-                                <md-card-avatar>
-                                    <img src="img/logo.svg">
-                                </md-card-avatar>
-                                <md-card-header-text>
-                                    <span class="md-title">Angular</span>
-                                    <span class="md-subhead">Material</span>
-                                </md-card-header-text>
-                            </md-card-header>
--->
-<!--
-                            <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
-                            <md-card-title>
-                                <md-card-title-text>
-                                    <span class="md-headline md-headline-custom">Global Equipments List</span>
-                                </md-card-title-text>
-                            </md-card-title>
--->
+
                             <md-card-content>
-<!--
-                                <p>
-                                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                                    two most important words in Ernest Greene's musical language: feel it. It's a simple request, as
-                                    well...
-                                </p>
--->
+
 								<div ng-controller="equipmentController as ctrl">
 								<form ng-submit="$event.preventDefault()">
 								
@@ -217,13 +164,7 @@
 								</div>
 <!--								COF FILTER ENDS -->
 								</form>
-								  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid" style='width:1060px; '></div>
-								  <button ng-click="enableFilter('CANADA')">View U.S.A</button>
-								  <button ng-click="enableFilter('U.S.A')">View Canada</button>
-								  <button ng-click="enableFilter('NONE')">Reset filters</button>
-								
-									
-									</div>
+								  <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid" style='width:1060px; '>
                             </md-card-content>
                         </md-card>
                     </div>
@@ -231,6 +172,8 @@
          
                 </md-content>
             </div>
-            <!-- code by Ashish Gupta -->
+            <div class="holder">
+				
+			</div>
 
         </div>

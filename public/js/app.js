@@ -1,4 +1,4 @@
-var app=angular.module('MyApp', ['ngRoute','ngMaterial', 'ngMessages','ui.grid', 'ui.grid.edit','ui.grid.selection']);
+var app=angular.module('MyApp', ['ngRoute','ngMaterial', 'ngMessages','ui.grid', 'ui.grid.edit','ui.grid.selection','ui.grid.pinning']);
 
 		app.controller('mainController',['$scope','dataLoad',function($scope,dataLoad){
 			dataLoad.getAllData(function(data){

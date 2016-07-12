@@ -219,3 +219,18 @@ margin-top: .7%;
 }
 
 /*end of rendered view*/
+
+/*Equipment page styles*/
+.holder{
+	height: 100px;
+}
+
+.ui-grid-row {
+  cursor: pointer;
+/*  display: none;*/
+
+  &:hover .ui-grid-cell {
+    background-color: #CCC;
+  }
+}
+/*Equipment page style ends here*/
