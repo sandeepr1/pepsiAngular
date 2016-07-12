@@ -210,8 +210,10 @@ i {
 /*rendered view css*/
 
 #renderedView{
-
-  padding-top: 6%;
+/*margin-top: 6%;
+padding-bottom: -6%;*/
+padding-top: 5%;
+margin-top: .7%;
   height: 110%;
   overflow-y:auto; 
 }

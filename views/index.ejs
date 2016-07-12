@@ -68,7 +68,7 @@
   			<!-- side menu code here -->
   	<div ng-controller="sideMenuController" class="col-md-2 col-lg-2" id="sideMenuDiv">
        <nav id="sidebar-wrapper"  class="sideMenuWrapper"role="navigation">
-        <img src="/images/header-backgroundimage.png" alt="Header Logo"  height="13%">
+        <img src="/images/header-backgroundimage.png" alt="Header Logo"  height="13%" style="position:relative;z-index:10000;">
            <ul class="nav sidebar-nav" id = "side">
               <!-- <li class="sidebar-brand" id = "slidemenu">
                   slidemenu
@@ -77,7 +77,7 @@
                   <img src="/images/ln-slidmenu-back.png" width="105%">
               </li>
               <li>
-                  <a href="/#/"><i class="glyphicon glyphicon-folder-close"></i> Dashboard</a>
+                  <a href="/#/" ng-class="{active:(selectedList=='dashboard')}"><i class="glyphicon glyphicon-folder-close" ></i> Dashboard</a>
               </li>
               <li>
                   <a href="/#/equipment"><i class="glyphicon glyphicon-facetime-video"></i>Equipment</a>
@@ -105,7 +105,7 @@
 
   			<!-- code for different views	 -->
   			<div class="col-md-10 col-lg-10" id="renderedView">
-  				<div ng-view="" style="height:inherit">
+  				<div ng-view="" style="height:inherit;position:relative;z-index:1;">
 
   				</div>
   			</div>
