@@ -1,4 +1,4 @@
-app.controller('equipmentController',['$scope','dataLoad','$http','$log', '$timeout', 'uiGridConstants',function($scope,dataLoad,$http,$log,$timeout,uiGridConstants){
+app.controller('equipmentController',['$scope','dataLoad','$http','$log', '$timeout','$location', 'uiGridConstants',function($scope,dataLoad,$http,$log,$timeout,$location,uiGridConstants){
 
 $scope.initEquipmentMap=function (coords,tabeldata) {
 	
@@ -2418,13 +2418,13 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
     $scope.setSelectable = function() {
       $scope.gridApi.selection.clearSelectedRows();
  
-      $scope.gridOptions.isRowSelectable = function(row){
+      /*$scope.gridOptions.isRowSelectable = function(row){
         if(row.entity.age > 30){
           return false;
         } else {
           return true;
         }
-      };
+      };*/
       $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
  
       $scope.gridOptions.data[0].age = 31;
@@ -2436,14 +2436,17 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
       $scope.gridApi = gridApi;
       gridApi.selection.on.rowSelectionChanged($scope,function(row){
         var msg = 'row selected ' + row.isSelected;
-		   console.log(row.entity);
+		console.log(row.entity);
+		  
         $log.log(msg);
+		
       });
  
       gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
         var msg = 'rows changed ' + rows.length;
 		 console.log(rows);
         $log.log(msg);
+		 $location.path('equipmentDetails');
       });
 	 $scope.gridRowClick = row => {
       console.log(row);
