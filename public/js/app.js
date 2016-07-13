@@ -1,10 +1,11 @@
-angular.module('MyApp', ['ngRoute','ngMaterial', 'ngMessages'])
+var app=angular.module('MyApp', ['ngRoute','ngMaterial', 'ngMessages','ui.grid','ui.grid.expandable', 'ui.grid.edit','ui.grid.selection','ui.grid.pinning']);
 
-		.controller('mainController',['$scope','dataLoad',function($scope,dataLoad){
+		app.controller('mainController',['$scope','dataLoad','$location',function($scope,dataLoad,$location){
 			dataLoad.getAllData(function(data){
 					$scope.data=data;
-					console.log(data);
+					$scope.selectedList='dashboard';
 			});
+			
 
 		}]);
 

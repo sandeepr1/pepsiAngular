@@ -1,8 +1,8 @@
-angular.module('MyApp').factory('dataLoad', ['$http',function($http){
+app.factory('dataLoad', ['$http',function($http){
 	var factory = {};
 
 	factory.getAllData=function(success){
-		 $http.get('/js/data.json').success( function(data) {
+		 $http.get('/js/dataone.json').success( function(data) {
 		        success(data);
       });
 
@@ -10,4 +10,14 @@ angular.module('MyApp').factory('dataLoad', ['$http',function($http){
 
 
 	return factory;
+}]);
+app.service('equipmentDtlsService', ['$http',function($http){
+	var equipmentDetails = {};
+
+	this.setSelectedEquipment=function(data){
+		 equipmentDetails=data;
+      };
+	this.getSelectedEquipment=function(){
+		 return equipmentDetails;
+      };
 }]);
