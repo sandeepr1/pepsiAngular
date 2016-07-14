@@ -47,8 +47,8 @@
 	}
 
 	function getPercent(d){
-		return (d.value)+" ; "+(d.endAngle-d.startAngle > 0.2 ? 
-				Math.round(1000*(d.endAngle-d.startAngle)/(Math.PI*2))/10+'%' : '')+" ;";
+		return d.value+" "+(d.endAngle-d.startAngle > 0.2 ? 
+				Math.round(1000*(d.endAngle-d.startAngle)/(Math.PI*2))/10+'%' : '');
 	}	
 	
 	Donut3D.transition = function(id,data, rx, ry, h, ir){
@@ -90,7 +90,9 @@
 			.transition().duration(750).attrTween("d", arcTweenOuter); 	
 			
 		d3.select("#"+id).selectAll(".percent").data(_data).transition().duration(750)
-			.attrTween("x",textTweenX).attrTween("y",textTweenY).text(getPercent); 	
+			.attrTween("x",textTweenX).attrTween("y",textTweenY).text(getPercent); 
+
+			
 	}
 	
 	Donut3D.draw=function(id, excelObject,SENConnectivityKeys,geoLocation,data, x /*center x*/, y/*center y*/, 
@@ -144,11 +146,41 @@
 					        geoLocation(temp);
 			});;
 
+
+
+      		       function wrap(text, width) {
+							  text.each(function() {
+							    var text = d3.select(this),
+							        words = text.text().split(/\s+/).reverse(),
+							        word,
+							        line = [],
+							        lineNumber = 0,
+							        lineHeight = 1.3, // ems
+							        y = text.attr("y"),
+							        dy = 1,
+							        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+							    while ((word = words.pop()) && (lineNumber < 4)  ) 
+							    {
+							    	 line.push(word);
+							      tspan.text(line.join(" "));
+							      if (tspan.node().getComputedTextLength() > width) {
+							        line.pop();
+							        tspan.text(line.join(" "));
+							        line = [word];
+							        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+							      }
+							    }
+							  });
+							}		
+	
 		slices.selectAll(".percent").data(_data).enter().append("text").attr("class", "percent")
-			.attr("x",function(d){ return 0.6*rx*Math.cos(0.5*(d.startAngle+d.endAngle));})
-			.attr("y",function(d){ return 0.6*ry*Math.sin(0.5*(d.startAngle+d.endAngle));})
+			.attr("x",function(d){ return (0.6*rx*Math.cos(0.5*(d.startAngle+d.endAngle)));})
+			.attr("y",function(d){ return (-25+0.6*ry*Math.sin(0.5*(d.startAngle+d.endAngle)));})
 			.text(getPercent).each(function(d){this._current=d;})
-			.style("fill","black");				
+			.style("fill","black")
+			.call(wrap, 5);	
+
+
 	}
 	
 	this.Donut3D = Donut3D;

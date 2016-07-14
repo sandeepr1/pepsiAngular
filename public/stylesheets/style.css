@@ -82,13 +82,13 @@ a {
             /*background-color: #ffcc33;*/
             }
             #first{
-            background-color: #ffcc44;
+            background-color: rgb(229,57,64);
             height: 100%;
             width: 75px;
             line-height: 50px;
             }
             #second{
-        background-color: #ff6633;
+        background-color: rgb(13,105,171);
         height: 100%;
                     width: 75px;
             line-height: 50px;

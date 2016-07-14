@@ -2344,18 +2344,20 @@ expandableRowTemplate: 'expandableRowTemplate.html',
         //expandableRowHeight: 40,
 // rowHeight:30,
 columnDefs: [
- { name:'Equip-id', field: 'EQPMT_ID',width:100 },
+    { name:'Country', field:'COUNTRY',width:80},
+     { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
  { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125 },
- { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
+
+ { name:'Equip-id', field: 'EQPMT_ID',width:100 },
  { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
  { name:'Last Heartbeat', field:'LAST_BEAT',width:180},
- { name:'Country', field:'COUNTRY',width:80},
+ 
  { name:'Market Unit', field:'MARKET_UNIT',width:300},
  { name:'Region', field:'REGION',width:300}
 //  { name:'Status', field:'status'
 //   ,cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"}
 ]};
-$http.get("/js/data.json")
+$http.get("/js/dataone.json")
 .then(function(response) {
 $scope.initEquipmentMap(response.data);
 var statimg;
@@ -2365,7 +2367,7 @@ console.log(statimg);
  
 response.data[i].subGridDtls=
 [{'EQPMT_ID':response.data[i].EQPMT_ID,
-          'EQPMT_SRL_NUM_VAL':response.data[i].EQPMT_SRL_NUM_VAL,
+    'EQPMT_SRL_NUM_VAL':response.data[i].EQPMT_SRL_NUM_VAL,
   'CUSTOMER_NAME':response.data[i].CUSTOMER_NAME,
   'CONNECTIVITY':response.data[i].CONNECTIVITY,
   'LAST_BEAT':response.data[i].LAST_BEAT,
@@ -2493,7 +2495,7 @@ equipmentDtlsService.setSelectedEquipment(row.entity);
 console.log(rows);
         $log.log(msg);
  
-//$location.path('equipmentDetails');
+$location.path('equipmentDetails');
       });
 $scope.gridRowClick = row => {
       console.log(row);
