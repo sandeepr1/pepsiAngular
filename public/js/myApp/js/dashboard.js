@@ -60,7 +60,7 @@ angular.module('MyApp')
 
                   	  	$scope.locations={};
                   	  	for(s=0;s<$scope.selectedMarketUnitData.length;s++){
-                  	  		$scope.locations[$scope.selectedMarketUnitData[s]["LOCATION"]]=1;
+                  	  		$scope.locations[$scope.selectedMarketUnitData[s]["CITY"]]=1;
                   	  	}
                   	  	$scope.locationsKeys=Object.keys($scope.locations);
                   	  	$scope.drawGraphs($scope.selectedMarketUnitData);
@@ -74,7 +74,7 @@ angular.module('MyApp')
                  	$scope.selectedLocation=location;
                  	$scope.selectedLocationData=[];
                  	for(var t=0;t<$scope.selectedMarketUnitData.length;t++){
-                 		if($scope.selectedMarketUnitData[t]["LOCATION"]==$scope.selectedLocation){
+                 		if($scope.selectedMarketUnitData[t]["CITY"]==$scope.selectedLocation){
                  			$scope.selectedLocationData.push($scope.selectedMarketUnitData[t]);
                  		}
                  	}
@@ -125,7 +125,8 @@ angular.module('MyApp')
 					      for (var i = 0; i < excelObject.Dashboard_Dump.length; i++)
 					      {
 					        SENConnectivity[excelObject.Dashboard_Dump[i]["CONNECTIVITY"]] = (SENConnectivity[excelObject.Dashboard_Dump[i]["CONNECTIVITY"]] + 1) || 1;
-					        OverallStatus[excelObject.Dashboard_Dump[i]["OVERALL_STATUS"]] = (OverallStatus[excelObject.Dashboard_Dump[i]["OVERALL_STATUS"]] + 1) || 1;
+					        	if(excelObject.Dashboard_Dump[i]["OVERALL_STATUS"]!='Connected & Reporting')
+					        		OverallStatus[excelObject.Dashboard_Dump[i]["OVERALL_STATUS"]] = (OverallStatus[excelObject.Dashboard_Dump[i]["OVERALL_STATUS"]] + 1) || 1;
 					      }
 
 					      Object.keys(SENConnectivity).forEach(function (key) {
@@ -151,7 +152,9 @@ angular.module('MyApp')
 					        temp["text"]=key;
 					        temp["value"]=OverallStatus[key];
 					        connectivityIssues.push(temp);
-					        OverallStatusKeys.push(key);
+					        console.log(key);
+					        if(key!=='Connected & Reporting')
+					        	OverallStatusKeys.push(key);
 
 					       
 					      });
@@ -215,7 +218,7 @@ angular.module('MyApp')
 					          infowindow.open(map, this);
 					          $('.geobox').show(700);
 					          $('.geodetails').html("");
-					          var table = '<center> <table class="table tclass" ><tr><td colspan=2> Equipment Parameters</td></tr><tr><td>Equipment Id : </td><td>'+this.details.equipmentId+'</td></tr><tr><td>Serial No : </td><td>'+this.details.serialNo+'</td></tr><tr><td>Customer Name : </td><td>'+this.details.customerName+'</td></tr><tr><td>Customer Address : </td><td>'+this.details.customerAddress+'</td></tr><tr><td>Last Pour : </td><td>'+this.details.lastPour+'</td></tr><tr><td>Last Heart Beat : </td><td>'+this.details.lastHeartBeat+'</td></tr><tr><td>Connectivity : </td><td>'+this.details.connectivity+'</td></tr></table></center>';
+					          var table = '<center> <table class="table tclass" ><tr><td colspan=2> Equipment Parameters</td></tr><tr><td>Equipment Id : </td><td>'+this.details.equipmentId+'</td></tr><tr><td>Serial No : </td><td>'+this.details.serialNo+'</td></tr><tr><td>Customer Name : </td><td>'+this.details.customerName+'</td></tr><tr><td>Customer Addr : </td><td>'+this.details.customerAddress+'</td></tr><tr><td>Last Pour : </td><td>'+this.details.lastPour+'</td></tr><tr><td>Last Heart Beat : </td><td>'+this.details.lastHeartBeat+'</td></tr><tr><td>Connectivity : </td><td>'+this.details.connectivity+'</td></tr></table></center>';
 					          $('.geodetails').html(table);
 					          $('.spireImage').html('<img src="images/pepsi.jpg" alt="" class="chkimg" width="100%" height="87%"/>');
 					        }))
@@ -237,8 +240,9 @@ angular.module('MyApp')
 							        y = text.attr("y"),
 							        dy = parseFloat(text.attr("dy")),
 							        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-							    while (word = words.pop()) {
-							      line.push(word);
+							    while ((word = words.pop()) && (lineNumber < 4)  ) 
+							    {
+							    	 line.push(word);
 							      tspan.text(line.join(" "));
 							      if (tspan.node().getComputedTextLength() > width) {
 							        line.pop();
@@ -250,7 +254,7 @@ angular.module('MyApp')
 							  });
 							}
 
-							var margin = {top: 20, right: 20, bottom: 30, left: 40},
+							var margin = {top: 20, right: 20, bottom: 50, left: 40},
 							    width = 500 - margin.left - margin.right,
 							    height = 300 - margin.top - margin.bottom;
 
@@ -262,7 +266,8 @@ angular.module('MyApp')
 
 							var xAxis = d3.svg.axis()
 							    .scale(x)
-							    .orient("bottom");
+							    .orient("bottom")
+							    .ticks(1);
 
 							var yAxis = d3.svg.axis()
 							    .scale(y)
@@ -273,7 +278,7 @@ angular.module('MyApp')
 							    .attr("width", width + margin.left + margin.right)
 							    .attr("height", height + margin.top + margin.bottom)
 							  .append("g")
-							    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+							    .attr("transform", "translate(" + margin.left + "," + (margin.top) + ")");
 
 
 							  x.domain(data.map(function(d) { return d.text; }));
@@ -281,7 +286,7 @@ angular.module('MyApp')
 
 							  svg.append("g")
 							      .attr("class", "x axis")
-							      .attr("transform", "translate(0," + (height-30) + ")")
+							      .attr("transform", "translate(0," + (height-40) + ")")
 							      .call(xAxis)
 							        .selectAll(".tick text")
       								.call(wrap, x.rangeBand());

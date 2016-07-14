@@ -1,7 +1,6 @@
 app.controller('equipmentController',['$scope','dataLoad','equipmentDtlsService','$http','$log', '$timeout','$location', 'uiGridConstants',function($scope,dataLoad,equipmentDtlsService,$http,$log,$timeout,$location,uiGridConstants){
 
 $scope.initEquipmentMap=function (coords,tabeldata) {
-	
         var coordinates = [
               {
                 "EQPMT_ID": 9548108,
@@ -2278,29 +2277,31 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
                            });
 
                       }
-            		
+            
                     
-            //				'http://www.myiconfinder.com/uploads/iconsets/32-32-a5485b563efc4511e0cd8bd04ad0fe9e.png';
-            		var image;
-            	
+            // 'http://www.myiconfinder.com/uploads/iconsets/32-32-a5485b563efc4511e0cd8bd04ad0fe9e.png';
+            var image;
+            
                     for (var i = 0; i < coordinates.length; i++) {
                         var contentString;
-            			if(coordinates[i].CONNECTIVITY=='Not Connected'){
-            				image='images/map-marker-red.png' ;
-            				contentString="<p>Connected, Faulty</p>";			
-            			}
-            			else{
-            				image ='images/map-marker-green.png' ;
-            				contentString="<p>Connected, Healthy</p>";			
-            			}
-            				
-            			
-            		   
-            		   console.log(contentString);
+            if(coordinates[i].CONNECTIVITY=='Not Connected'){
+            image='images/map-marker-red.png' ;
+            contentString="<p>Connected, Faulty</p>";
+ 
+            }
+            else{
+            image ='images/map-marker-green.png' ;
+            contentString="<p>Connected, Healthy</p>";
+ 
+            }
+            
+            
+              
+              console.log(contentString);
                        var infowindow = new google.maps.InfoWindow({
                        content: contentString
                       });
-            		
+            
                       var marker = new google.maps.Marker({
                       position: {
                             "lat": coordinates[i].LAT,
@@ -2325,118 +2326,118 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
                       $('.geodetails').html(table);
                     }))
                     }
-            	
+            
    }
 
-		dataLoad.getAllData(function(data){
-		$scope.data=data;
-		});
+dataLoad.getAllData(function(data){
+$scope.data=data;
+});
 
 
-				$scope.gridOptions = {
-					enableRowSelection:true,
-					//selectionRowHeaderWidth: 40,
-					enableSorting: true,
-					enableFullRowSelection:true,
-					multiSelect:false,
-					expandableRowTemplate: 'expandableRowTemplate.html',
-        			//expandableRowHeight: 40,
-//					rowHeight:30,
-					columnDefs: [
-					  { name:'Equip-id', field: 'EQPMT_ID',width:100 },
-					  { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125 },
-					  { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
-					  { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
-					  { name:'Last Heartbeat', field:'LAST_BEAT',width:180},
-					  { name:'Country', field:'COUNTRY',width:80},
-					  { name:'Market Unit', field:'MARKET_UNIT',width:300},
-					  { name:'Region', field:'REGION',width:300}
-//					  { name:'Status', field:'status'
-//					   ,cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"}
-					]};
-				
-			$http.get("/js/data.json")
-			.then(function(response) {
-						$scope.initEquipmentMap(response.data);
-						var statimg;
-				      for(i = 0; i < response.data.length; i++){
-						 statimg=response.data[i].CONNECTIVITY.split(' ')[0];
-						 console.log(statimg);
-						  
-						 response.data[i].subGridDtls=
-							 [{'EQPMT_ID':response.data[i].EQPMT_ID,
-					           'EQPMT_SRL_NUM_VAL':response.data[i].EQPMT_SRL_NUM_VAL,
-							   'CUSTOMER_NAME':response.data[i].CUSTOMER_NAME,
-							   'CONNECTIVITY':response.data[i].CONNECTIVITY,
-							   'LAST_BEAT':response.data[i].LAST_BEAT,
-							   'COUNTRY':response.data[i].COUNTRY,
-							   'MARKET_UNIT':response.data[i].MARKET_UNIT,
-							   'REGION':response.data[i].REGION}
-							  ]
-						 if(response.data[i].CONNECTIVITY=='Transmitting')
-							  response.data[i].subGridDtls.checked=true;
-						 else
-							  response.data[i].subGridDtls.checked=false;
-		
-//						 ,'Connec':statimg
-						
-						response.data[i].subGridOptions = {
-						  rowHeight:70,
-							  columnDefs:[{ name:'Equip-id', field: 'EQPMT_ID',width:100,enablePinning:true,
-										  cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.EQPMT_ID}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><img src="images/pepsi_spire_icon.png" /></div><div class="col-lg-4"></div></div></div>'},
-										  { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125,
-										  cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.EQPMT_SRL_NUM_VAL}}</div><div class="col-lg-0"></div></div><br></div>'},
-										  { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
-										  { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
-										  { name:'Last Heartbeat', field:'LAST_BEAT',width:180,cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.CONNECTIVITY}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><img ng-if={{row.entity.checked}} src="images/Transmitting.png" /></div><div class="col-lg-4"></div></div></div>'},
-										  { name:'Country', field:'COUNTRY',width:80,
-										  cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.COUNTRY}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-2"></div><div class="col-lg-8 col-centered"><img src="images/usa_map_icon.png" /></div><div class="col-lg-2"></div></div></div>'},
-										  { name:'Market Unit', field:'MARKET_UNIT',width:300},
-										  { name:'Region', field:'REGION',width:300},
-										  { name:'Connectivity', field:'photoP' ,cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.CONNECTIVITY}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><img src="images/Transmitting.png" /></div><div class="col-lg-4"></div></div></div>'}/*,
-										   { name:'Connec', field:'Connec'}*/
-//									   '<div><form name="inputForm"><input type="number" ng-class="\'colt\' + col.uid" ui-grid-editor ng-model="MODEL_COL_FIELD"></form></div>' } ]
+$scope.gridOptions = {
+enableRowSelection:true,
+//selectionRowHeaderWidth: 40,
+enableSorting: true,
+enableFullRowSelection:true,
+multiSelect:false,
+expandableRowTemplate: 'expandableRowTemplate.html',
+        //expandableRowHeight: 40,
+// rowHeight:30,
+columnDefs: [
+ { name:'Equip-id', field: 'EQPMT_ID',width:100 },
+ { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125 },
+ { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
+ { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
+ { name:'Last Heartbeat', field:'LAST_BEAT',width:180},
+ { name:'Country', field:'COUNTRY',width:80},
+ { name:'Market Unit', field:'MARKET_UNIT',width:300},
+ { name:'Region', field:'REGION',width:300}
+//  { name:'Status', field:'status'
+//   ,cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"}
+]};
+$http.get("/js/data.json")
+.then(function(response) {
+$scope.initEquipmentMap(response.data);
+var statimg;
+     for(i = 0; i < response.data.length; i++){
+statimg=response.data[i].CONNECTIVITY.split(' ')[0];
+console.log(statimg);
  
-									  ],
-						  data: response.data[i].subGridDtls
-						}
-						console.log('Modified data object is');
-						console.log(response.data);
-					  }
-				$scope.data = response.data;
-				$scope.masterData=response.data;
-				
-				 $timeout(function() {
-					if($scope.gridApi.selection.selectRow){
-					  $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
-					}
-				  });
-				console.log("Master data read from server");
-				$scope.gridOptions = {
-					enableRowSelection:true,
-					selectionRowHeaderWidth: 60,
-					enableSorting: true,
-					enableRowResizing:true,
-		
-//					rowHeight:30,
-					columnDefs: [
-					  { name:'Equip-id', field: 'EQPMT_ID',width:100,enablePinning:true },
-					  { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125 },
-					  { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
-					  { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
-					  { name:'Last Heartbeat', field:'LAST_BEAT',width:180},
-					  { name:'Country', field:'COUNTRY',width:80},
-					  { name:'Market Unit', field:'MARKET_UNIT',width:300},
-					  { name:'Region', field:'REGION',width:300}
-//					  { name:'Status', field:'status'
-//					   ,cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"}
-					]
-			  };
-				$scope.gridOptions.data=$scope.data;
-				
-			});
-	
-	    $scope.toggleMultiSelect = function() {
+response.data[i].subGridDtls=
+[{'EQPMT_ID':response.data[i].EQPMT_ID,
+          'EQPMT_SRL_NUM_VAL':response.data[i].EQPMT_SRL_NUM_VAL,
+  'CUSTOMER_NAME':response.data[i].CUSTOMER_NAME,
+  'CONNECTIVITY':response.data[i].CONNECTIVITY,
+  'LAST_BEAT':response.data[i].LAST_BEAT,
+  'COUNTRY':response.data[i].COUNTRY,
+  'MARKET_UNIT':response.data[i].MARKET_UNIT,
+  'REGION':response.data[i].REGION}
+ ]
+if(response.data[i].CONNECTIVITY=='Transmitting Data'){
+response.data[i].checked=true;
+response.data[i].subGridDtls[0].checked=true;
+}
+else{
+ response.data[i].checked=false;
+ response.data[i].subGridDtls[0].checked=false;
+}
+// ,'Connec':statimg
+console.log("Subgrid detials follow");
+console.log(response.data[i].subGridDtls);
+response.data[i].subGridOptions = {
+ rowHeight:70,
+ columnDefs:[{ name:'Equip-id', field: 'EQPMT_ID',width:100,enablePinning:true,
+ cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.EQPMT_ID}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><img src="images/pepsi_spire_icon.png" /></div><div class="col-lg-4"></div></div></div>'},
+ { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125,
+ cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.EQPMT_SRL_NUM_VAL}}</div><div class="col-lg-0"></div></div><br></div>'},
+ { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
+ { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150,
+ cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.CONNECTIVITY}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><div ng-show=false><img  src="images/Transmitting.png" /></div></div><div class="col-lg-4"></div></div></div>'},//change
+ { name:'Last Heartbeat', field:'LAST_BEAT',width:180,cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.LAST_BEAT}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><div ng-show=true><img  src="images/Heartbeat.png" /></div></div><div class="col-lg-4"></div></div></div>'},
+ { name:'Country', field:'COUNTRY',width:80,
+ cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.COUNTRY}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-2"></div><div class="col-lg-8 col-centered"><img src="images/usa_map_icon.png" /></div><div class="col-lg-2"></div></div></div>'},
+ { name:'Market Unit', field:'MARKET_UNIT',width:300},
+ { name:'Region', field:'REGION',width:300},
+ { name:'Connectivity', field:'photoP' ,cellTemplate:'<div><div class="row"><div class="col-lg-0"></div><div class="col-lg-12 col-centered">{{row.entity.CONNECTIVITY}}</div><div class="col-lg-0"></div></div><br><div class="row"><div class="col-lg-4"></div><div class="col-lg-4 col-centered"><img src="images/Transmitting.png" /></div><div class="col-lg-4"></div></div></div>'}/*,
+  { name:'Connec', field:'Connec'}*/
+//   '<div><form name="inputForm"><input type="number" ng-class="\'colt\' + col.uid" ui-grid-editor ng-model="MODEL_COL_FIELD"></form></div>' } ]
+ 
+ ],
+ data: response.data[i].subGridDtls
+}
+console.log('Modified data object is');
+console.log(response.data);
+ }
+$scope.data = response.data;
+$scope.masterData=response.data;
+$timeout(function() {
+if($scope.gridApi.selection.selectRow){
+ $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
+}
+ });
+console.log("Master data read from server");
+$scope.gridOptions = {
+enableRowSelection:true,
+selectionRowHeaderWidth: 60,
+enableSorting: true,
+enableRowResizing:true,
+// rowHeight:30,
+columnDefs: [
+ { name:'Equip-id', field: 'EQPMT_ID',width:100,enablePinning:true },
+ { name:'Equip Sl.No', field: 'EQPMT_SRL_NUM_VAL',width:125 },
+ { name:'Customer Name', field: 'CUSTOMER_NAME',width:200},
+ { name:'Connectivity', field: 'CONNECTIVITY', enableCellEdit:false,width:150},//change
+ { name:'Last Heartbeat', field:'LAST_BEAT',width:180},
+ { name:'Country', field:'COUNTRY',width:80},
+ { name:'Market Unit', field:'MARKET_UNIT',width:300},
+ { name:'Region', field:'REGION',width:300}
+//  { name:'Status', field:'status'
+//   ,cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"}
+]
+ };
+$scope.gridOptions.data=$scope.data;
+});
+   $scope.toggleMultiSelect = function() {
       $scope.gridApi.selection.setMultiSelect(!$scope.gridApi.grid.options.multiSelect);
     };
  
@@ -2482,70 +2483,69 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
       $scope.gridApi = gridApi;
       gridApi.selection.on.rowSelectionChanged($scope,function(row){
         var msg = 'row selected ' + row.isSelected;
-		console.log(row.entity);
-		equipmentDtlsService.setSelectedEquipment(row.entity);
+console.log(row.entity);
+equipmentDtlsService.setSelectedEquipment(row.entity);
         $log.log(msg);
-		
       });
  
       gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
         var msg = 'rows changed ' + rows.length;
-		 console.log(rows);
+console.log(rows);
         $log.log(msg);
-		  
-		//$location.path('equipmentDetails');
+ 
+//$location.path('equipmentDetails');
       });
-	 $scope.gridRowClick = row => {
+$scope.gridRowClick = row => {
       console.log(row);
       // or maybe $location.path(row.url)?
     };
 
     };
-	
-	//$scope.gridOptions.rowTemplate= '/views/grid-row.view.html';
+//$scope.gridOptions.rowTemplate= '/views/grid-row.view.html';
     
 
-				$scope.enableFilter=function(data){
-				var filData=$scope.data;
-				//$scope.gridOptions.data.splice(25,20);
-				if(data!=='NONE'){
-				for(var i = filData.length-1; i--;){
-					if (filData[i].COUNTRY=== data) filData.splice(i, 1);
-				}
-				$scope.data=filData;
-				console.log($scope.data.length);
-				//$scope.gridOptions.data=filData;
-//				for(var j=0;j<filData.length;j++)
-//				console.log(filData[j].COUNTRY);
-				//console.log($scope.inc);
-			//	console.log($scope.data);
-			}
-			else
-			{	console.log("Master data : initial length -> "+$scope.masterData.length);
-				$scope.data=$scope.masterData;
-				console.log($scope.data.length);
-				console.log("Master data : Post operation length ->"+$scope.masterData.length);
-/*				$scope.inc=true;
-				console.log("Reset in progress");
-				$scope.data=$scope.masterData;
-				console.log("Master data");
-				console.log($scope.masterData);
-				console.log("Scope data");	
-				console.log($scope.data);
-				for(var j=0;j<$scope.data.length;j++)
-					console.log($scope.data.COUNTRY);*/
-			}
-		}
-				
-		 var self = this;
+$scope.enableFilter=function(data){
+var filData=$scope.data;
+//$scope.gridOptions.data.splice(25,20);
+if(data!=='NONE'){
+for(var i = filData.length-1; i--;){
+if (filData[i].COUNTRY=== data) filData.splice(i, 1);
+}
+$scope.data=filData;
+console.log($scope.data.length);
+//$scope.gridOptions.data=filData;
+// for(var j=0;j<filData.length;j++)
+// console.log(filData[j].COUNTRY);
+//console.log($scope.inc);
+//
+console.log($scope.data);
+}
+else
+{
+console.log("Master data : initial length -> "+$scope.masterData.length);
+$scope.data=$scope.masterData;
+console.log($scope.data.length);
+console.log("Master data : Post operation length ->"+$scope.masterData.length);
+/* $scope.inc=true;
+console.log("Reset in progress");
+$scope.data=$scope.masterData;
+console.log("Master data");
+console.log($scope.masterData);
+console.log("Scope data");
+ 
+console.log($scope.data);
+for(var j=0;j<$scope.data.length;j++)
+console.log($scope.data.COUNTRY);*/
+}
+}
+var self = this;
            self.simulateQuery = false;
            self.isDisabled    = false;
            // list of states to be displayed
            //self.states        = loadStates();
-		   self.regions=loadRegions();
-		  
-		   	
-			
+  self.regions=loadRegions();
+ 
+  
           /* self.querySearch   = querySearch;
            self.selectedItemChange = selectedItemChange;
            self.searchTextChange   = searchTextChange;
@@ -2553,7 +2553,6 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
            function newState(state) {
               alert("This functionality is yet to be implemented!");
            }    
-		
            function querySearch (query) {
               var results = query ? self.states.filter( createFilterFor(query) ) : self.states, deferred;
               if (self.simulateQuery) {
@@ -2561,7 +2560,7 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
                  $timeout(function () { 
                        deferred.resolve( results ); 
                     }, 
-		            Math.random() * 1000, false);
+           Math.random() * 1000, false);
                  return deferred.promise;
               } else {
                  return results;
@@ -2595,306 +2594,302 @@ $scope.initEquipmentMap=function (coords,tabeldata) {
               return function filterFn(state) {
                  return (state.value.indexOf(lowercaseQuery) === 0);
               };
-		   }*/
-			/*REGION FILTER STARTS HERE*/
-					self.regionSearch=regionSearch;
-					self.selectedRegionChange=selectedRegionChange;
-					self.searchRegionChange=searchRegionChange;
+  }*/
+/*REGION FILTER STARTS HERE*/
+self.regionSearch=regionSearch;
+self.selectedRegionChange=selectedRegionChange;
+self.searchRegionChange=searchRegionChange;
 
-					function loadRegions() {
-					  var allRegions = 'CALIFORNIA RGN,Georgia Mkt,MOUNTAIN RGN,MIDWEST RGN,NORTHEAST RGN';
-					  return allRegions.split(",").map( function (region) {
-						 return {
-							value: region.toLowerCase(),
-							display: region
-						 };
-					  });
-				   }
-					   function regionSearch (query) {
-					  var results = query ? self.regions.filter( createRegionFilterFor(query) ) : self.regions, deferred;
-					  if (self.simulateQuery) {
-						 deferred = $q.defer();
-						 $timeout(function () { 
-							   deferred.resolve( results ); 
-							}, 
-							Math.random() * 1000, false);
-						 return deferred.promise;
-					  } else {
-						 return results;
-					  }
-				   }
-				   function searchRegionChange(text) {
-					  console.log('Region changed to ' + text);
-				   }
-				   function selectedRegionChange(item) {
-					  console.log('Region selection changed to ' + JSON.stringify(item));
-					   console.log($scope.data);
-					   var filData=$scope.data;
+function loadRegions() {
+ var allRegions = 'CALIFORNIA RGN,Georgia Mkt,MOUNTAIN RGN,MIDWEST RGN,NORTHEAST RGN';
+ return allRegions.split(",").map( function (region) {
+return {
+value: region.toLowerCase(),
+display: region
+};
+ });
+  }
+  function regionSearch (query) {
+ var results = query ? self.regions.filter( createRegionFilterFor(query) ) : self.regions, deferred;
+ if (self.simulateQuery) {
+deferred = $q.defer();
+$timeout(function () { 
+  deferred.resolve( results ); 
+}, 
+Math.random() * 1000, false);
+return deferred.promise;
+ } else {
+return results;
+ }
+  }
+  function searchRegionChange(text) {
+ console.log('Region changed to ' + text);
+  }
+  function selectedRegionChange(item) {
+ console.log('Region selection changed to ' + JSON.stringify(item));
+  console.log($scope.data);
+  var filData=$scope.data;
 
-						if(item!=='NONE'){
-					/*			for(var i = filData.length-1; i--;){
-									if (filData[i].REGION=== item.display) filData.splice(i, 1);
-								}*/
-								
-							//console.log(filData.filter(filterRegion));
-							var result=new Array(filData.filter(filterRegion.bind(null,item.display)));
-							console.log('Result array is');
-							console.log(result);
-							console.log('Grid data is');
-							console.log($scope.data);
-							var resArray=result[0];
-							//$scope.data=resArray;
-							console.log('Grid transformed is');
-							console.log($scope.data);
-							$scope.gridOptions.data=resArray;
-							//  $scope.$apply();
-//								for(var i = filData.length-1; i--;){
-//									if (filData[i].REGION=== item.display) filData.splice(i, 1);
-//								}
-						   }
-				   }
-				
-				function filterRegion(filterValue,element,index,array){
-					console.log('Element region -> '+element.REGION);
-					return (element.REGION==filterValue);
-					console.log()
-				}
-				 //filter function for search query
-				   function createRegionFilterFor(query) {
-					  var lowercaseQuery = angular.lowercase(query);
-					  return function filterFn(region) {
-						 return (region.value.indexOf(lowercaseQuery) === 0);
-					  };
-								 }
+if(item!=='NONE'){
+/*
+for(var i = filData.length-1; i--;){
+if (filData[i].REGION=== item.display) filData.splice(i, 1);
+}*/
+//console.log(filData.filter(filterRegion));
+var result=new Array(filData.filter(filterRegion.bind(null,item.display)));
+console.log('Result array is');
+console.log(result);
+console.log('Grid data is');
+console.log($scope.data);
+var resArray=result[0];
+//$scope.data=resArray;
+console.log('Grid transformed is');
+console.log($scope.data);
+$scope.gridOptions.data=resArray;
+//  $scope.$apply();
+// for(var i = filData.length-1; i--;){
+// if (filData[i].REGION=== item.display) filData.splice(i, 1);
+// }
+  }
+  }
+function filterRegion(filterValue,element,index,array){
+console.log('Element region -> '+element.REGION);
+return (element.REGION==filterValue);
+console.log()
+}
+//filter function for search query
+  function createRegionFilterFor(query) {
+ var lowercaseQuery = angular.lowercase(query);
+ return function filterFn(region) {
+return (region.value.indexOf(lowercaseQuery) === 0);
+ };
+}
 
-			 /*REGION FILTER STARTS HERE*/
-				
-			/*MARKET UNIT FILTER STARTS HERE*/
-				 	self.munits=loadMunits();
-					self.munitSearch=munitSearch;
-					self.selectedMunitChange=selectedMunitChange;
-					self.searchMunitChange=searchMunitChange;
+/*REGION FILTER STARTS HERE*/
+/*MARKET UNIT FILTER STARTS HERE*/
+self.munits=loadMunits();
+self.munitSearch=munitSearch;
+self.selectedMunitChange=selectedMunitChange;
+self.searchMunitChange=searchMunitChange;
 
-					function loadMunits() {
-					  var allMunits = 'N NEW ENGLAND MKT,NEW JERSEY MKT,UPSTATE E NY MKT,PENN SOUTH MKT,PHILLY METRO MKT';
-					  return allMunits.split(",").map( function (munit) {
-						 return {
-							value: munit.toLowerCase(),
-							display: munit
-						 };
-					  });
-				   }
-					   function munitSearch (query) {
-					  var results = query ? self.munits.filter( createMunitFilterFor(query) ) : self.munits, deferred;
-					  if (self.simulateQuery) {
-						 deferred = $q.defer();
-						 $timeout(function () { 
-							   deferred.resolve( results ); 
-							}, 
-							Math.random() * 1000, false);
-						 return deferred.promise;
-					  } else {
-						 return results;
-					  }
-				   }
-				   function searchMunitChange(text) {
-					  console.log('munit changed to ' + text);
-				   }
-				   function selectedMunitChange(item) {
-					  console.log('munit selection changed to ' + JSON.stringify(item));
-					    var filData=$scope.data;
+function loadMunits() {
+ var allMunits = 'N NEW ENGLAND MKT,NEW JERSEY MKT,UPSTATE E NY MKT,PENN SOUTH MKT,PHILLY METRO MKT';
+ return allMunits.split(",").map( function (munit) {
+return {
+value: munit.toLowerCase(),
+display: munit
+};
+ });
+  }
+  function munitSearch (query) {
+ var results = query ? self.munits.filter( createMunitFilterFor(query) ) : self.munits, deferred;
+ if (self.simulateQuery) {
+deferred = $q.defer();
+$timeout(function () { 
+  deferred.resolve( results ); 
+}, 
+Math.random() * 1000, false);
+return deferred.promise;
+ } else {
+return results;
+ }
+  }
+  function searchMunitChange(text) {
+ console.log('munit changed to ' + text);
+  }
+  function selectedMunitChange(item) {
+ console.log('munit selection changed to ' + JSON.stringify(item));
+   var filData=$scope.data;
 
-						if(item!=='NONE'){
-							var result=new Array(filData.filter(filterMunit.bind(null,item.display)));
-							var resArray=result[0];
-							$scope.gridOptions.data=resArray;
-						   }
-					  
-				   }
-				function filterMunit(filterValue,element,index,array){
-					console.log('Element MARKET unit -> '+element.MARKET_UNIT);
-					return (element.MARKET_UNIT==filterValue);
-					console.log()
-				}
-						//filter function for search query
-				   function createMunitFilterFor(query) {
-					  var lowercaseQuery = angular.lowercase(query);
-					  return function filterFn(munit) {
-						 return (munit.value.indexOf(lowercaseQuery) === 0);
-					  };
-								 }
+if(item!=='NONE'){
+var result=new Array(filData.filter(filterMunit.bind(null,item.display)));
+var resArray=result[0];
+$scope.gridOptions.data=resArray;
+  }
+ 
+  }
+function filterMunit(filterValue,element,index,array){
+console.log('Element MARKET unit -> '+element.MARKET_UNIT);
+return (element.MARKET_UNIT==filterValue);
+console.log()
+}
+//filter function for search query
+  function createMunitFilterFor(query) {
+ var lowercaseQuery = angular.lowercase(query);
+ return function filterFn(munit) {
+return (munit.value.indexOf(lowercaseQuery) === 0);
+ };
+}
 
-			 /*MARKET UNIT FILTER STARTS HERE*/
-			
-			/*LOCATION FILTER STARTS HERE*/
-				 	self.locations=loadLocations();
-					self.locationSearch=locationSearch;
-					self.selectedLocationChange=selectedLocationChange;
-					self.searchLocationChange=searchLocationChange;
+/*MARKET UNIT FILTER STARTS HERE*/
+/*LOCATION FILTER STARTS HERE*/
+self.locations=loadLocations();
+self.locationSearch=locationSearch;
+self.selectedLocationChange=selectedLocationChange;
+self.searchLocationChange=searchLocationChange;
 
-					function loadLocations() {
-					  var allLocations = '206,116,1123,123';
-					  return allLocations.split(",").map( function (location) {
-						 return {
-							value: location.toLowerCase(),
-							display: location
-						 };
-					  });
-				   }
-					   function locationSearch (query) {
-					  var results = query ? self.locations.filter( createLocationFilterFor(query) ) : self.locations, deferred;
-					  if (self.simulateQuery) {
-						 deferred = $q.defer();
-						 $timeout(function () { 
-							   deferred.resolve( results ); 
-							}, 
-							Math.random() * 1000, false);
-						 return deferred.promise;
-					  } else {
-						 return results;
-					  }
-				   }
-				   function searchLocationChange(text) {
-					  console.log('Location changed to ' + text);
-				   }
-				   function selectedLocationChange(item) {
-					  console.log('Location selection changed to ' + JSON.stringify(item));
-					    var filData=$scope.data;
-					   	if(item!=='NONE'){
-							var result=new Array(filData.filter(filterLocation.bind(null,item.display)));
-							var resArray=result[0];
-							$scope.gridOptions.data=resArray;
-						   }
-				   }
-					
-				function filterLocation(filterValue,element,index,array){
-					console.log('Element Location -> '+element.LOCATION);
-					return (element.LOCATION==filterValue);
-					console.log()
-				}
-						//filter function for search query
-				   function createLocationFilterFor(query) {
-					  var lowercaseQuery = angular.lowercase(query);
-					  return function filterFn(location) {
-						 return (location.value.indexOf(lowercaseQuery) === 0);
-					  };
-								 }
+function loadLocations() {
+ var allLocations = '206,116,1123,123';
+ return allLocations.split(",").map( function (location) {
+return {
+value: location.toLowerCase(),
+display: location
+};
+ });
+  }
+  function locationSearch (query) {
+ var results = query ? self.locations.filter( createLocationFilterFor(query) ) : self.locations, deferred;
+ if (self.simulateQuery) {
+deferred = $q.defer();
+$timeout(function () { 
+  deferred.resolve( results ); 
+}, 
+Math.random() * 1000, false);
+return deferred.promise;
+ } else {
+return results;
+ }
+  }
+  function searchLocationChange(text) {
+ console.log('Location changed to ' + text);
+  }
+  function selectedLocationChange(item) {
+ console.log('Location selection changed to ' + JSON.stringify(item));
+   var filData=$scope.data;
+  
+if(item!=='NONE'){
+var result=new Array(filData.filter(filterLocation.bind(null,item.display)));
+var resArray=result[0];
+$scope.gridOptions.data=resArray;
+  }
+  }
+function filterLocation(filterValue,element,index,array){
+console.log('Element Location -> '+element.LOCATION);
+return (element.LOCATION==filterValue);
+console.log()
+}
+//filter function for search query
+  function createLocationFilterFor(query) {
+ var lowercaseQuery = angular.lowercase(query);
+ return function filterFn(location) {
+return (location.value.indexOf(lowercaseQuery) === 0);
+ };
+}
 
-			 /*LOCATION FILTER ENDS HERE*/
-			/*COF FILTER STARTS HERE*/
-				 	self.cofs=loadCofs();
-					self.cofSearch=cofSearch;
-					self.selectedCofChange=selectedCofChange;
-					self.searchCofChange=searchCofChange;
+/*LOCATION FILTER ENDS HERE*/
+/*COF FILTER STARTS HERE*/
+self.cofs=loadCofs();
+self.cofSearch=cofSearch;
+self.selectedCofChange=selectedCofChange;
+self.searchCofChange=searchCofChange;
 
-					function loadCofs() {
-					  var allCofs = '8196683,	9760128,	3508158,	9760372,	8730892,	9913640,	9760851,	9763263,	9753982,	9760271,	8272037,	9760380,	8741969,	8624740,	8619675,	9851316,	7136539,	3506625,	8272153,	8120803,	8120150,	3511404,	3342313,	3490974,	8117109,	9831230,	9298567,	9754211,	9760433,	9760434,	9760121,	8700161,	8610469,	8623226,	9429105,	9914053,	9754168,	3506633,	3507381,	9753918,	3507352,	3499865,	3342248,	9760554,	9914284,	9760367,	9597295,	3508120,	9757770';
-						
-					  return allCofs.split(",").map( function (cof) {
-						 return {
-							value: cof.toLowerCase(),
-							display: cof
-						 };
-					  });
-				   }
-					  function cofSearch (query) {
-					  var results = query ? self.cofs.filter( createCofFilterFor(query) ) : self.cofs, deferred;
-					  if (self.simulateQuery) {
-						 deferred = $q.defer();
-						 $timeout(function () { 
-							   deferred.resolve( results ); 
-							}, 
-							Math.random() * 1000, false);
-						 return deferred.promise;
-					  } else {
-						 return results;
-					  }
-				   }
-				   function searchCofChange(text) {
-					  console.log('Cof changed to ' + text);
-				   }
-				   function selectedCofChange(item) {
-					  console.log('Cof selection changed to ' + JSON.stringify(item));
-				   }
-						//filter function for search query
-				   function createCofFilterFor(query) {
-					  var lowercaseQuery = angular.lowercase(query);
-					  return function filterFn(cof) {
-						 return (cof.value.indexOf(lowercaseQuery) === 0);
-					  };
-								 }
+function loadCofs() {
+ var allCofs = '8196683,9760128, 3508158,9760372, 8730892,9913640, 9760851,9763263, 9753982,9760271, 8272037,9760380, 8741969,8624740, 8619675,9851316, 7136539,3506625, 8272153,8120803, 8120150,3511404, 3342313,3490974, 8117109,9831230, 9298567,9754211, 9760433,9760434, 9760121,8700161, 8610469,8623226, 9429105,9914053, 9754168,3506633, 3507381,9753918, 3507352,3499865, 3342248,9760554, 9914284,9760367, 9597295,3508120, 9757770';
+ return allCofs.split(",").map( function (cof) {
+return {
+value: cof.toLowerCase(),
+display: cof
+};
+ });
+  }
+ function cofSearch (query) {
+ var results = query ? self.cofs.filter( createCofFilterFor(query) ) : self.cofs, deferred;
+ if (self.simulateQuery) {
+deferred = $q.defer();
+$timeout(function () { 
+  deferred.resolve( results ); 
+}, 
+Math.random() * 1000, false);
+return deferred.promise;
+ } else {
+return results;
+ }
+  }
+  function searchCofChange(text) {
+ console.log('Cof changed to ' + text);
+  }
+  function selectedCofChange(item) {
+ console.log('Cof selection changed to ' + JSON.stringify(item));
+  }
+//filter function for search query
+  function createCofFilterFor(query) {
+ var lowercaseQuery = angular.lowercase(query);
+ return function filterFn(cof) {
+return (cof.value.indexOf(lowercaseQuery) === 0);
+ };
+}
 
-			 /*COF FILTER STARTS HERE*/
-	/*CUSTOMER FILTER STARTS HERE*/
-		  			self.customers=loadCustomers();
-					self.customerSearch=customerSearch;
-					self.selectedCustomerChange=selectedCustomerChange;
-					self.searchCustomerChange=searchCustomerChange;
+/*COF FILTER STARTS HERE*/
+/*CUSTOMER FILTER STARTS HERE*/
+ 
+self.customers=loadCustomers();
+self.customerSearch=customerSearch;
+self.selectedCustomerChange=selectedCustomerChange;
+self.searchCustomerChange=searchCustomerChange;
 
-					function loadCustomers() {
-					 var allCustomers = '1008 PBC PORTLAND OR,1012 PBC FAIRBANKS AK,1315 PBC SYRACUSE NY,1047 PBC WILLIAMSPORT PA,1064 PBC ELKINS WV,1316 PBC UTICA NY,1010 PBC ANCHORAGE AK';
-					 return allCustomers.split(",").map( function (customer) {
-						return {
-							value: customer.toLowerCase(),
-							display: customer
-						};
-					 });
-				  }
-					  function customerSearch (query) {
-					 var results = query ? self.customers.filter( createCustomerFilterFor(query) ) : self.customers, deferred;
-					 if (self.simulateQuery) {
-						deferred = $q.defer();
-						$timeout(function () { 
-							  deferred.resolve( results ); 
-							}, 
-							Math.random() * 1000, false);
-						return deferred.promise;
-					 } else {
-						return results;
-					 }
-				  }
-				  function searchCustomerChange(text) {
-					 console.log('Customer changed to ' + text);
-				  }
-				  function selectedCustomerChange(item) {
-					 console.log('Customer selection changed to ' + JSON.stringify(item));
-					  console.log($scope.data);
-					  var filData=$scope.data;
+function loadCustomers() {
+var allCustomers = '1008 PBC PORTLAND OR,1012 PBC FAIRBANKS AK,1315 PBC SYRACUSE NY,1047 PBC WILLIAMSPORT PA,1064 PBC ELKINS WV,1316 PBC UTICA NY,1010 PBC ANCHORAGE AK';
+return allCustomers.split(",").map( function (customer) {
+return {
+value: customer.toLowerCase(),
+display: customer
+};
+});
+ }
+ function customerSearch (query) {
+var results = query ? self.customers.filter( createCustomerFilterFor(query) ) : self.customers, deferred;
+if (self.simulateQuery) {
+deferred = $q.defer();
+$timeout(function () { 
+ deferred.resolve( results ); 
+}, 
+Math.random() * 1000, false);
+return deferred.promise;
+} else {
+return results;
+}
+ }
+ function searchCustomerChange(text) {
+console.log('Customer changed to ' + text);
+ }
+ function selectedCustomerChange(item) {
+console.log('Customer selection changed to ' + JSON.stringify(item));
+ console.log($scope.data);
+ var filData=$scope.data;
 
-						if(item!=='NONE'){
-					/*			for(var i = filData.length-1; i--;){
-									if (filData[i].REGION=== item.display) filData.splice(i, 1);
-								}*/
-								
-							//console.log(filData.filter(filterRegion));
-							var result=new Array(filData.filter(filterCustomer.bind(null,item.display)));
-							console.log('Result array is');
-							console.log(result);
-							console.log('Grid data is');
-							console.log($scope.data);
-							var resArray=result[0];
-							//$scope.data=resArray;
-							console.log('Grid transformed is');
-							console.log($scope.data);
-							$scope.gridOptions.data=resArray;
-							//  $scope.$apply();
-//								for(var i = filData.length-1; i--;){
-//									if (filData[i].REGION=== item.display) filData.splice(i, 1);
-//								}
-						  }
-				  }
-				
-				function filterCustomer(filterValue,element,index,array){
-					console.log('Element region -> '+element.CUSTOMER);
-					return (element.CUSTOMER==filterValue);
-					console.log()
-				}
-				//filter function for search query
-				  function createCustomerFilterFor(query) {
-					 var lowercaseQuery = angular.lowercase(query);
-					 return function filterFn(customer) {
-						return (customer.value.indexOf(lowercaseQuery) === 0);
-					 };
-				  }
-					  /*CUSTOMER FILTER ENDS HERE*/
+if(item!=='NONE'){
+/*
+for(var i = filData.length-1; i--;){
+if (filData[i].REGION=== item.display) filData.splice(i, 1);
+}*/
+//console.log(filData.filter(filterRegion));
+var result=new Array(filData.filter(filterCustomer.bind(null,item.display)));
+console.log('Result array is');
+console.log(result);
+console.log('Grid data is');
+console.log($scope.data);
+var resArray=result[0];
+//$scope.data=resArray;
+console.log('Grid transformed is');
+console.log($scope.data);
+$scope.gridOptions.data=resArray;
+//  $scope.$apply();
+// for(var i = filData.length-1; i--;){
+// if (filData[i].REGION=== item.display) filData.splice(i, 1);
+// }
+ }
+ }
+function filterCustomer(filterValue,element,index,array){
+console.log('Element region -> '+element.CUSTOMER);
+return (element.CUSTOMER==filterValue);
+console.log()
+}
+//filter function for search query
+ function createCustomerFilterFor(query) {
+var lowercaseQuery = angular.lowercase(query);
+return function filterFn(customer) {
+return (customer.value.indexOf(lowercaseQuery) === 0);
+};
+ }
+ /*CUSTOMER FILTER ENDS HERE*/
 }]);

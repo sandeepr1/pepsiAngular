@@ -66,6 +66,9 @@ div #snapshot{
   display: none;
 }
 
+.y.axis path {
+  display: none;
+}
 
 path.slice{
 	stroke-width:2px;
